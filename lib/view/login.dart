@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:granulation/common/messages.dart';
+import 'package:granulation/view/device_info.dart';
 
 @immutable
 class LogIn extends StatefulWidget {
@@ -55,6 +56,26 @@ class _LogInState extends State<LogIn> {
               ),
               textColor: Colors.black,
               onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.miscellaneous_services),
+              iconColor: Colors.blue,
+              title: const Text(
+                'Device Information',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              textColor: Colors.black,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DeviceInfo(),
+                  ),
+                );
                 Navigator.pop(context);
               },
             ),
@@ -124,20 +145,10 @@ class _LogInState extends State<LogIn> {
                 label: Text('User Name'),
                 hintText: 'Enter your user name',
                 border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                  color: Colors.blue,
-                )),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  ),
-                ),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return LoginScreenMessages
-                      .userNameTextFieldEmpty; //Validation error
+                  return 'Please enter user name'; //Validation error
                 }
                 return null; //Validation Success
               },
@@ -149,30 +160,22 @@ class _LogInState extends State<LogIn> {
               controller: passwordController,
               obscureText: !_passwordVisible,
               decoration: InputDecoration(
-                  icon: const Icon(Icons.password),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() => _passwordVisible = !_passwordVisible);
-                    },
-                    icon: Icon(!_passwordVisible
-                        ? Icons.visibility
-                        : Icons.visibility_off),
-                  ),
-                  label: const Text('Password'),
-                  hintText: 'Please Enter Password',
-                  border: const OutlineInputBorder(),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                    ),
-                  ),
-                  errorBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Colors.red,
-                  ))),
+                icon: const Icon(Icons.password),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() => _passwordVisible = !_passwordVisible);
+                  },
+                  icon: Icon(!_passwordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                ),
+                label: const Text('Password'),
+                hintText: 'Please Enter Password',
+                border: const OutlineInputBorder(),
+              ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return LoginScreenMessages.passwordTextFieldEmpty;
+                  return 'Please enter password';
                 }
                 return null;
               },
@@ -220,8 +223,32 @@ class _LogInState extends State<LogIn> {
     }
   }
 
-  shutDownDevice() {
+  shutDownDevice() async {
     if (!kIsWeb && Platform.isAndroid) {
+      await showDialog<void>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Logout'),
+            content: const Text('Do you wih to logout?'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  //TODO Implement Logout API and push replace login page
+                  Navigator.pop(context);
+                },
+                child: const Text('Logout'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
+            ],
+          );
+        },
+      );
       Navigator.pop(context);
     } else {
       null;
