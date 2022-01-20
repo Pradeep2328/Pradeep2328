@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:granulation/view/device_info.dart';
+import '../view/device_info.dart';
 
 class UserScaffold {
   static AppBar appBar(String title) {
@@ -37,14 +37,14 @@ class UserScaffold {
               ),
             ),
             textColor: Colors.black,
-            onTap: () {
-              Navigator.push(
+            onTap: () async {
+              await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => DeviceInfo(),
                 ),
               );
-              //Navigator.pop(context);
+              Navigator.pop(context);
             },
           ),
           ListTile(

@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:granulation/common/messages.dart';
-import 'package:granulation/view/device_info.dart';
+import '../common/messages.dart';
+import 'device_info.dart';
 
 @immutable
 class LogIn extends StatefulWidget {

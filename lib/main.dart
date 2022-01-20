@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:granulation/view/login.dart';
-import 'package:granulation/view/shifting.dart';
+import 'package:granulation/services/mqtt_client.dart';
+import 'view/login.dart';
+import 'view/shifting.dart';
 
-void main() {
+void main() async {
+  MqttClientWrapper mqtt = MqttClientWrapper();
+  await mqtt.connect();
+  mqtt.sendData(data: 'Hello World!!!');
   runApp(const MainApp());
 }
 
