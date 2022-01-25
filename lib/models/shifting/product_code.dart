@@ -1,10 +1,15 @@
-class ProductCodeModel {
+import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
+import 'package:equatable/equatable.dart';
+
+@immutable
+class ProductCodeModel extends Equatable {
   final String id;
   final DateTime createdAt;
   final String name;
   final String avatar;
 
-  ProductCodeModel({
+  const ProductCodeModel({
     required this.id,
     required this.createdAt,
     required this.name,
@@ -41,4 +46,14 @@ class ProductCodeModel {
 
   @override
   String toString() => name;
+
+  @override
+  List<Object?> get props => [id, name];
+
+  static List<String> productCodes(Response<dynamic> response) {
+    var models = ProductCodeModel.fromJsonList(response.data);
+    var productCodes =
+        models.map((ProductCodeModel product) => product.name).toList();
+    return productCodes;
+  }
 }

@@ -5,14 +5,14 @@ import 'package:granulation/common/widgets.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:granulation/models/shifting/product_code.dart';
 
-class Shifting extends StatefulWidget {
-  const Shifting({Key? key}) : super(key: key);
+class ShiftingProcess extends StatefulWidget {
+  const ShiftingProcess({Key? key}) : super(key: key);
 
   @override
-  _ShiftingState createState() => _ShiftingState();
+  _ShiftingProcessState createState() => _ShiftingProcessState();
 }
 
-class _ShiftingState extends State<Shifting> {
+class _ShiftingProcessState extends State<ShiftingProcess> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController processOrderNumberController = TextEditingController();
   String productCode = '';
@@ -23,8 +23,8 @@ class _ShiftingState extends State<Shifting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UserScaffold.appBar('Shifting'),
-      drawer: UserScaffold.drawer(context),
+      appBar: MainScaffold.appBar('Shifting'),
+      drawer: MainScaffold.drawer(context),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -41,6 +41,7 @@ class _ShiftingState extends State<Shifting> {
                     SizedBox(
                       //Used to make DropdownSearch as of same height as TextFormField
                       height: 55.0,
+                      //child: DropdownSearch<ProductCodeModel>(
                       child: DropdownSearch<String>(
                         mode: Mode.MENU,
                         showSelectedItems: true,
@@ -55,16 +56,21 @@ class _ShiftingState extends State<Shifting> {
                           ),
                         ),
                         validator: (value) {
+                          //if (value == null || value.name.isEmpty) {
                           if (value == null || value.isEmpty) {
                             return 'Please select Product Code';
                           }
                           return null;
                         },
+                        //itemAsString: (item) => item!.userAsString(),
                         onFind: (text) async {
                           var response = await Dio().get(
-                              'http://5d85ccfb1e61af001471bf55.mockapi.io/user');
+                            'https://5d85ccfb1e61af001471bf60.mockapi.io/user',
+                          ); //https://5d85ccfb1e61af001471bf60.mockapi.io/user
+                          if (response.statusCode != 200) {}
                           var models =
                               ProductCodeModel.fromJsonList(response.data);
+                          //return models;
                           final List<String> productNames =
                               models.map((product) => product.name).toList();
                           return productNames;
@@ -72,6 +78,7 @@ class _ShiftingState extends State<Shifting> {
                         onChanged: (value) => setState(
                           () {
                             productCode = value ?? '';
+                            //productCode = value?.name ?? '';
                           },
                         ),
                       ),
@@ -106,11 +113,13 @@ class _ShiftingState extends State<Shifting> {
                         onFind: (text) async {
                           var response = await Dio().get(
                               'http://5d85ccfb1e61af001471bf55.mockapi.io/user');
-                          var models =
-                              ProductCodeModel.fromJsonList(response.data);
-                          final List<String> productNames =
-                              models.map((product) => product.name).toList();
-                          return productNames;
+                          // var models =
+                          //     ProductCodeModel.fromJsonList(response.data);
+                          // final List<String> productNames =
+                          //     models.map((product) => product.name).toList();
+                          var productCodes =
+                              ProductCodeModel.productCodes(response);
+                          return productCodes;
                         },
                         onChanged: (value) => setState(
                           () {

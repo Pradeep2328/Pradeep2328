@@ -1,9 +1,12 @@
 import 'dart:io';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import '../common/messages.dart';
-import 'device_info.dart';
+import 'package:granulation/presentation/view/about_us.dart';
+import 'package:granulation/presentation/view/contact_us.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:granulation/presentation/view/device_info.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 @immutable
 class LogIn extends StatefulWidget {
@@ -14,9 +17,13 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController userNameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final RoundedLoadingButtonController _loginButtonController =
+      RoundedLoadingButtonController();
   bool _passwordVisible = false;
 
   @override
@@ -29,7 +36,8 @@ class _LogInState extends State<LogIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('Login')),
+        title: const Text('Login'),
+        centerTitle: true,
       ),
       drawer: Drawer(
         child: ListView(
@@ -90,7 +98,12 @@ class _LogInState extends State<LogIn> {
               ),
               textColor: Colors.black,
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ContactUs(),
+                  ),
+                );
               },
             ),
             ListTile(
@@ -103,7 +116,11 @@ class _LogInState extends State<LogIn> {
                 ),
               ),
               textColor: Colors.black,
-              onTap: () {
+              onTap: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AboutUs()),
+                );
                 Navigator.pop(context);
               },
             ),
@@ -124,8 +141,23 @@ class _LogInState extends State<LogIn> {
           ],
         ),
       ),
-      body: drawLoginScreen(),
+      body: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        controller: _refreshController,
+        header: const WaterDropHeader(),
+        onRefresh: _onRefresh,
+        child: drawLoginScreen(),
+      ),
     );
+  }
+
+  void _onRefresh() async {
+    _userNameController.clear();
+    _passwordController.clear();
+    _loginButtonController.reset();
+    await Future.delayed(const Duration(milliseconds: 1500));
+    _refreshController.refreshCompleted();
   }
 
   //Actually Draws the Login Form
@@ -139,7 +171,7 @@ class _LogInState extends State<LogIn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextFormField(
-              controller: userNameController,
+              controller: _userNameController,
               decoration: const InputDecoration(
                 icon: Icon(Icons.person),
                 label: Text('User Name'),
@@ -157,7 +189,7 @@ class _LogInState extends State<LogIn> {
               height: 25.0,
             ),
             TextFormField(
-              controller: passwordController,
+              controller: _passwordController,
               obscureText: !_passwordVisible,
               decoration: InputDecoration(
                 icon: const Icon(Icons.password),
@@ -183,14 +215,20 @@ class _LogInState extends State<LogIn> {
             const SizedBox(
               height: 25.0,
             ),
-            ElevatedButton(
-              onPressed: () {
+            RoundedLoadingButton(
+              onPressed: () async {
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
-                  final userName = userNameController.text;
-                  final password = passwordController.text;
+                  final userName = _userNameController.text;
+                  final password = _passwordController.text;
+                  _loginButtonController.success();
+                  return;
                 }
+                _loginButtonController.error();
+                await Future.delayed(const Duration(milliseconds: 1500));
+                _loginButtonController.reset();
               },
+              controller: _loginButtonController,
               child: const Text('Log-In'),
             ),
           ],

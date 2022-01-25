@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../common/messages.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
 class DeviceInfo extends StatefulWidget {

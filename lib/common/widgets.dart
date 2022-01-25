@@ -1,10 +1,11 @@
 import 'dart:io';
+import 'package:dartz/dartz.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import '../view/device_info.dart';
+import 'package:granulation/presentation/view/device_info.dart';
 
-class UserScaffold {
+class MainScaffold {
   static AppBar appBar(String title) {
     return AppBar(
       centerTitle: true,
@@ -78,6 +79,44 @@ class UserScaffold {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.switch_account),
+            iconColor: Colors.orange,
+            title: const Text(
+              'Switch User',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            textColor: Colors.black,
+            onTap: () async {
+              await showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text('Switch User'),
+                    content: const Text('Do you wish to Switch User?'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          //TODO Implement Change User API and push replace login page
+                          //TODO Implement push replace with different user
+                        },
+                        child: const Text('Switch User'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Cancel'),
+                      ),
+                    ],
+                  );
+                },
+              );
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.logout),
             iconColor: Colors.red,
             title: const Text(
@@ -86,14 +125,14 @@ class UserScaffold {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            textColor: Colors.red,
+            textColor: Colors.black,
             onTap: () async {
               await showDialog<void>(
                 context: context,
                 builder: (context) {
                   return AlertDialog(
                     title: const Text('Logout'),
-                    content: const Text('Do you wih to logout?'),
+                    content: const Text('Do you wish to logout?'),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () {
@@ -120,3 +159,7 @@ class UserScaffold {
     );
   }
 }
+
+// class MainAuthentication{
+//   S
+// }
