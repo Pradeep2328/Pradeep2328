@@ -156,7 +156,7 @@ class _LogInState extends State<LogIn> {
     _userNameController.clear();
     _passwordController.clear();
     _loginButtonController.reset();
-    await Future.delayed(const Duration(milliseconds: 1500));
+    //await Future.delayed(const Duration(milliseconds: 1500));
     _refreshController.refreshCompleted();
   }
 

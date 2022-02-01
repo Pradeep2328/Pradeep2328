@@ -426,6 +426,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.0"
+  flutter_switch:
+    dependency: "direct main"
+    description:
+      name: flutter_switch
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -937,7 +944,7 @@ packages:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.4.43"
+    version: "19.4.48"
   syncfusion_flutter_datagrid:
     dependency: "direct main"
     description:
@@ -945,6 +952,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "19.4.43"
+  syncfusion_flutter_datepicker:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_datepicker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "19.4.48"
   syncfusion_flutter_gauges:
     dependency: "direct main"
     description:
