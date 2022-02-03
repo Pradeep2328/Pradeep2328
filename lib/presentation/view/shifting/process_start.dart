@@ -46,6 +46,7 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                         mode: Mode.MENU,
                         showSelectedItems: true,
                         showSearchBox: true,
+                        showAsSuffixIcons: true,
                         dropdownSearchDecoration: const InputDecoration(
                           label: Text('Product Code'),
                           focusColor: Colors.blue,
@@ -95,6 +96,7 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                         mode: Mode.MENU,
                         showSelectedItems: true,
                         showSearchBox: true,
+                        showAsSuffixIcons: true,
                         dropdownSearchDecoration: const InputDecoration(
                           label: Text('Batch Number'),
                           focusColor: Colors.blue,
@@ -140,6 +142,7 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                         mode: Mode.MENU,
                         showSelectedItems: true,
                         showSearchBox: true,
+                        showAsSuffixIcons: true,
                         dropdownSearchDecoration: const InputDecoration(
                           label: Text('Area'),
                           focusColor: Colors.blue,
@@ -183,6 +186,7 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                         mode: Mode.MENU,
                         showSelectedItems: true,
                         showSearchBox: true,
+                        showAsSuffixIcons: true,
                         dropdownSearchDecoration: const InputDecoration(
                           label: Text('Room Name'),
                           focusColor: Colors.blue,

@@ -21,7 +21,14 @@ class _ShiftingInstrumentClearanceState
     extends State<ShiftingInstrumentClearance> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  // ? Bellow Variable hold the slected values for dropdown serach field
   String instrumentCode = '';
+  String meshSize = '';
+  String screenSize = '';
+  String productCode = '';
+  String previousProductBatchNumber = '';
+  String cleaningType = '';
+
   static const List<String> _instrumentType = [
     // ! Don't change the text (spelling) as Mesh Size and SS Screen Index is dependent on the spelling
     'Vibratory Sifter',
@@ -98,7 +105,17 @@ class _ShiftingInstrumentClearanceState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                DropdownButton<String>(
+                DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  decoration: const InputDecoration(
+                    label: Text('Instrument Code'),
+                    focusColor: Colors.blue,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        style: BorderStyle.solid,
+                      ),
+                    ),
+                  ),
                   icon: const Icon(Icons.arrow_drop_down),
                   value: _instrumentType[_selectedInstrumentType],
                   items: _instrumentType
@@ -124,6 +141,7 @@ class _ShiftingInstrumentClearanceState
                   mode: Mode.MENU,
                   showSelectedItems: true,
                   showSearchBox: true,
+                  showAsSuffixIcons: true,
                   dropdownSearchDecoration: const InputDecoration(
                     label: Text('Instrument Code'),
                     focusColor: Colors.blue,
@@ -166,6 +184,7 @@ class _ShiftingInstrumentClearanceState
                       mode: Mode.MENU,
                       showSelectedItems: true,
                       showSearchBox: true,
+                      showAsSuffixIcons: true,
                       dropdownSearchDecoration: const InputDecoration(
                         label: Text('Mesh Size'),
                         focusColor: Colors.blue,
@@ -193,14 +212,11 @@ class _ShiftingInstrumentClearanceState
                       },
                       onChanged: (value) => setState(
                         () {
-                          instrumentCode = value ?? '';
+                          meshSize = value ?? '';
                         },
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 25.0,
                 ),
                 // * Screen Size - Only for Instrument Type : SS Screen
                 Visibility(
@@ -214,6 +230,7 @@ class _ShiftingInstrumentClearanceState
                       mode: Mode.MENU,
                       showSelectedItems: true,
                       showSearchBox: true,
+                      showAsSuffixIcons: true,
                       dropdownSearchDecoration: const InputDecoration(
                         label: Text('Screen Size'),
                         focusColor: Colors.blue,
@@ -241,7 +258,7 @@ class _ShiftingInstrumentClearanceState
                       },
                       onChanged: (value) => setState(
                         () {
-                          instrumentCode = value ?? '';
+                          screenSize = value ?? '';
                         },
                       ),
                     ),
@@ -255,6 +272,7 @@ class _ShiftingInstrumentClearanceState
                   mode: Mode.MENU,
                   showSelectedItems: true,
                   showSearchBox: true,
+                  showAsSuffixIcons: true,
                   dropdownSearchDecoration: const InputDecoration(
                     label: Text('Previous Product Code'),
                     focusColor: Colors.blue,
@@ -281,7 +299,7 @@ class _ShiftingInstrumentClearanceState
                   },
                   onChanged: (value) => setState(
                     () {
-                      instrumentCode = value ?? '';
+                      productCode = value ?? '';
                     },
                   ),
                 ),
@@ -303,6 +321,7 @@ class _ShiftingInstrumentClearanceState
                   mode: Mode.MENU,
                   showSelectedItems: true,
                   showSearchBox: true,
+                  showAsSuffixIcons: true,
                   dropdownSearchDecoration: const InputDecoration(
                     label: Text('Previous Product Batch Number'),
                     focusColor: Colors.blue,
@@ -329,7 +348,7 @@ class _ShiftingInstrumentClearanceState
                   },
                   onChanged: (value) => setState(
                     () {
-                      instrumentCode = value ?? '';
+                      previousProductBatchNumber = value ?? '';
                     },
                   ),
                 ),
@@ -463,6 +482,7 @@ class _ShiftingInstrumentClearanceState
                   mode: Mode.MENU,
                   showSelectedItems: true,
                   showSearchBox: true,
+                  showAsSuffixIcons: true,
                   dropdownSearchDecoration: const InputDecoration(
                     label: Text('Cleaning Type'),
                     focusColor: Colors.blue,
@@ -489,7 +509,7 @@ class _ShiftingInstrumentClearanceState
                   },
                   onChanged: (value) => setState(
                     () {
-                      instrumentCode = value ?? '';
+                      cleaningType = value ?? '';
                     },
                   ),
                 ),
@@ -538,9 +558,12 @@ class _ShiftingInstrumentClearanceState
                   child: SfDateRangePicker(
                     controller: _datePickerController,
                     showActionButtons: true,
-                    onCancel: () => setState(() {
-                      _datePickerVisible = false;
-                    }),
+                    showTodayButton: true,
+                    onCancel: () => setState(
+                      () {
+                        _datePickerVisible = false;
+                      },
+                    ),
                     onSubmit: (p0) {
                       final DateFormat formatter = DateFormat('dd-MM-yyyy');
                       String date = formatter.format(p0 as DateTime);
