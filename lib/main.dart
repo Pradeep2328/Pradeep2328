@@ -19,8 +19,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: ShiftingInstrumentClearance(),
-      // home: SetReturnIPC(),
+      // home: ShiftingInstrumentClearance(),
+      home: SetReturnIPC(),
       // home: ShiftingProcess(),
       // home: LogIn(),
       //home: AboutUs(),
