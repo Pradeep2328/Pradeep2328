@@ -132,128 +132,86 @@ class _AreaClearanceState extends State {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Previous Product Code:'),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: DropdownButtonFormField<String>(
-                          isExpanded: true,
-                          decoration: const InputDecoration(
-                            label: Text('Previous Product Code'),
-                            focusColor: Colors.blue,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                style: BorderStyle.solid,
-                              ),
-                            ),
-                          ),
-                          icon: const Icon(Icons.arrow_drop_down),
-                          value: _instrumentType[_selectedInstrumentType],
-                          items: _instrumentType
-                              .map<DropdownMenuItem<String>>(
-                                (String value) => DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _selectedInstrumentType =
-                                  _instrumentType.indexOf(newValue!);
-                            });
-                          },
+                  DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    decoration: const InputDecoration(
+                      label: Text('Previous Product Code'),
+                      focusColor: Colors.blue,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          style: BorderStyle.solid,
                         ),
-                      )
-                    ],
+                      ),
+                    ),
+                    icon: const Icon(Icons.arrow_drop_down),
+                    value: _instrumentType[_selectedInstrumentType],
+                    items: _instrumentType
+                        .map<DropdownMenuItem<String>>(
+                          (String value) => DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedInstrumentType =
+                            _instrumentType.indexOf(newValue!);
+                      });
+                    },
                   ),
 
                   const SizedBox(
                     height: 25.0,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Previous Product Name:'),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: TextFormField(
-                          enabled: _productName == 0 ? false : true,
-                          controller: _instrumentProductName,
-                          decoration: const InputDecoration(
-                            label: Text('Previous Product Name'),
-                            hintText: 'Enter Previous Product Name',
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (_productName == 1 &&
-                                (value == null || value.isEmpty)) {
-                              return 'Please enter Product Name'; //Validation error
-                            }
-                            return null; //Validation Success
-                          },
-                        ),
-                      )
-                    ],
+                  TextFormField(
+                    enabled: _productName == 0 ? false : true,
+                    controller: _instrumentProductName,
+                    decoration: const InputDecoration(
+                      label: Text('Previous Product Name'),
+                      hintText: 'Enter Previous Product Name',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (_productName == 1 &&
+                          (value == null || value.isEmpty)) {
+                        return 'Please enter Product Name'; //Validation error
+                      }
+                      return null; //Validation Success
+                    },
                   ),
 
                   const SizedBox(
                     height: 25.0,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Previous Batch Number: '),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: DropdownButtonFormField<String>(
-                          isExpanded: true,
-                          decoration: const InputDecoration(
-                            label: Text('Previous Batch Number'),
-                            focusColor: Colors.blue,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                style: BorderStyle.solid,
-                              ),
-                            ),
-                          ),
-                          icon: const Icon(Icons.arrow_drop_down),
-                          value: _instrumentType[_selectedInstrumentType],
-                          items: _instrumentType
-                              .map<DropdownMenuItem<String>>(
-                                (String value) => DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                ),
-                              )
-                              .toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _selectedInstrumentType =
-                                  _instrumentType.indexOf(newValue!);
-                            });
-                          },
+                  DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    decoration: const InputDecoration(
+                      label: Text('Previous Batch Number'),
+                      focusColor: Colors.blue,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          style: BorderStyle.solid,
                         ),
-                      )
-                    ],
+                      ),
+                    ),
+                    icon: const Icon(Icons.arrow_drop_down),
+                    value: _instrumentType[_selectedInstrumentType],
+                    items: _instrumentType
+                        .map<DropdownMenuItem<String>>(
+                          (String value) => DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedInstrumentType =
+                            _instrumentType.indexOf(newValue!);
+                      });
+                    },
                   ),
 
                   const SizedBox(
@@ -321,316 +279,188 @@ class _AreaClearanceState extends State {
                     height: 25.0,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Set Temperature: '),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: TextFormField(
-                          enabled: _setTemperature == 0 ? false : true,
-                          controller: _instrumentsetTemperature,
-                          decoration: const InputDecoration(
-                            label: Text('Set Temperature'),
-                            hintText: 'Enter Temperature',
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (_setTemperature == 1 &&
-                                (value == null || value.isEmpty)) {
-                              return 'Please enter Temperature'; //Validation error
-                            }
-                            return null; //Validation Success
-                          },
-                        ),
-                      )
-                    ],
+                  TextFormField(
+                    enabled: _setTemperature == 0 ? false : true,
+                    controller: _instrumentsetTemperature,
+                    decoration: const InputDecoration(
+                      label: Text('Set Temperature'),
+                      hintText: 'Enter Temperature',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (_setTemperature == 1 &&
+                          (value == null || value.isEmpty)) {
+                        return 'Please enter Temperature'; //Validation error
+                      }
+                      return null; //Validation Success
+                    },
                   ),
 
                   const SizedBox(
                     height: 25.0,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Set Limit: '),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: TextFormField(
-                          enabled: _limit == 0 ? false : true,
-                          controller: _instrumentLimit,
-                          decoration: const InputDecoration(
-                            label: Text('Set Limit'),
-                            hintText: 'Enter Limit',
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (_limit == 1 &&
-                                (value == null || value.isEmpty)) {
-                              return 'Please enter Limit'; //Validation error
-                            }
-                            return null; //Validation Success
-                          },
-                        ),
-                      )
-                    ],
+                  TextFormField(
+                    enabled: _limit == 0 ? false : true,
+                    controller: _instrumentLimit,
+                    decoration: const InputDecoration(
+                      label: Text('Set Limit'),
+                      hintText: 'Enter Limit',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (_limit == 1 && (value == null || value.isEmpty)) {
+                        return 'Please enter Limit'; //Validation error
+                      }
+                      return null; //Validation Success
+                    },
                   ),
 
                   const SizedBox(
                     height: 25.0,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Actual Temperature: '),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: TextFormField(
-                          enabled: _actualTemparature == 0 ? false : true,
-                          controller: _instrumentActualTemperature,
-                          decoration: const InputDecoration(
-                            label: Text('Actual Temperature'),
-                            hintText: 'Enter Actual Temperature',
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (_actualTemparature == 1 &&
-                                (value == null || value.isEmpty)) {
-                              return 'Please enter Actual Temperature'; //Validation error
-                            }
-                            return null; //Validation Success
-                          },
-                        ),
-                      )
-                    ],
+                  TextFormField(
+                    enabled: _actualTemparature == 0 ? false : true,
+                    controller: _instrumentActualTemperature,
+                    decoration: const InputDecoration(
+                      label: Text('Actual Temperature'),
+                      hintText: 'Enter Actual Temperature',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (_actualTemparature == 1 &&
+                          (value == null || value.isEmpty)) {
+                        return 'Please enter Actual Temperature'; //Validation error
+                      }
+                      return null; //Validation Success
+                    },
                   ),
 
                   const SizedBox(
                     height: 25.0,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Set Relative Humidity: '),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: TextFormField(
-                          enabled: _setRelativeHumidity == 0 ? false : true,
-                          controller: _instrumentsetRelativeHumidity,
-                          decoration: const InputDecoration(
-                            label: Text('Set Relative Humidity'),
-                            hintText: 'Enter Relative Humidity',
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (_setRelativeHumidity == 1 &&
-                                (value == null || value.isEmpty)) {
-                              return 'Please enter Relative Humidity'; //Validation error
-                            }
-                            return null; //Validation Success
-                          },
-                        ),
-                      )
-                    ],
+                  TextFormField(
+                    enabled: _setRelativeHumidity == 0 ? false : true,
+                    controller: _instrumentsetRelativeHumidity,
+                    decoration: const InputDecoration(
+                      label: Text('Set Relative Humidity'),
+                      hintText: 'Enter Relative Humidity',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (_setRelativeHumidity == 1 &&
+                          (value == null || value.isEmpty)) {
+                        return 'Please enter Relative Humidity'; //Validation error
+                      }
+                      return null; //Validation Success
+                    },
                   ),
 
                   const SizedBox(
                     height: 25.0,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Limit: '),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: TextFormField(
-                          enabled: _humiditylimit == 0 ? false : true,
-                          controller: _instrumentHumidityLimit,
-                          decoration: const InputDecoration(
-                            label: Text('Limit(%)'),
-                            hintText: 'Enter Limit',
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (_humiditylimit == 1 &&
-                                (value == null || value.isEmpty)) {
-                              return 'Please enter Limit'; //Validation error
-                            }
-                            return null; //Validation Success
-                          },
-                        ),
-                      ),
-                    ],
+                  TextFormField(
+                    enabled: _humiditylimit == 0 ? false : true,
+                    controller: _instrumentHumidityLimit,
+                    decoration: const InputDecoration(
+                      label: Text('Limit(%)'),
+                      hintText: 'Enter Limit',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (_humiditylimit == 1 &&
+                          (value == null || value.isEmpty)) {
+                        return 'Please enter Limit'; //Validation error
+                      }
+                      return null; //Validation Success
+                    },
                   ),
 
                   const SizedBox(
                     height: 25.0,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Relative Humidity: '),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: TextFormField(
-                          enabled: _actualRelativeHumidity == 0 ? false : true,
-                          controller: _instrumentActualRelativeHumidity,
-                          decoration: const InputDecoration(
-                            label: Text('Actual Relative Humidity'),
-                            hintText: 'Enter Actual Relative Humidity',
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (_actualRelativeHumidity == 1 &&
-                                (value == null || value.isEmpty)) {
-                              return 'Please enter Limit'; //Validation error
-                            }
-                            return null; //Validation Success
-                          },
-                        ),
-                      )
-                    ],
+                  TextFormField(
+                    enabled: _actualRelativeHumidity == 0 ? false : true,
+                    controller: _instrumentActualRelativeHumidity,
+                    decoration: const InputDecoration(
+                      label: Text('Actual Relative Humidity'),
+                      hintText: 'Enter Actual Relative Humidity',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (_actualRelativeHumidity == 1 &&
+                          (value == null || value.isEmpty)) {
+                        return 'Please enter Limit'; //Validation error
+                      }
+                      return null; //Validation Success
+                    },
                   ),
 
                   const SizedBox(
                     height: 25.0,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Differential Pressure: '),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: TextFormField(
-                          enabled: _differentialPressure == 0 ? false : true,
-                          controller: _instrumentDifferentialPressure,
-                          decoration: const InputDecoration(
-                            label: Text('Differential Pressure'),
-                            hintText: 'Enter Differential Pressure',
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (_differentialPressure == 1 &&
-                                (value == null || value.isEmpty)) {
-                              return 'Please enter Differential Pressure'; //Validation error
-                            }
-                            return null; //Validation Success
-                          },
-                        ),
-                      )
-                    ],
+                  TextFormField(
+                    enabled: _differentialPressure == 0 ? false : true,
+                    controller: _instrumentDifferentialPressure,
+                    decoration: const InputDecoration(
+                      label: Text('Differential Pressure'),
+                      hintText: 'Enter Differential Pressure',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (_differentialPressure == 1 &&
+                          (value == null || value.isEmpty)) {
+                        return 'Please enter Differential Pressure'; //Validation error
+                      }
+                      return null; //Validation Success
+                    },
                   ),
 
                   const SizedBox(
                     height: 25.0,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Limit (%): '),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: TextFormField(
-                          enabled: _pressurelimit == 0 ? false : true,
-                          controller: _instrumentPressureLimit,
-                          decoration: const InputDecoration(
-                            label: Text('Set Differntial Limit'),
-                            hintText: 'Enter Differntial Limit',
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (_pressurelimit == 1 &&
-                                (value == null || value.isEmpty)) {
-                              return 'Please enter Differntial Limit'; //Validation error
-                            }
-                            return null; //Validation Success
-                          },
-                        ),
-                      )
-                    ],
+                  TextFormField(
+                    enabled: _pressurelimit == 0 ? false : true,
+                    controller: _instrumentPressureLimit,
+                    decoration: const InputDecoration(
+                      label: Text('Set Differntial Limit'),
+                      hintText: 'Enter Differntial Limit',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (_pressurelimit == 1 &&
+                          (value == null || value.isEmpty)) {
+                        return 'Please enter Differntial Limit'; //Validation error
+                      }
+                      return null; //Validation Success
+                    },
                   ),
 
                   const SizedBox(
                     height: 25.0,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Actual Differential Pressue: '),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: TextFormField(
-                          enabled:
-                              _actualDifferentialPressure == 0 ? false : true,
-                          controller: _instrumentActualDifferentialPressure,
-                          decoration: const InputDecoration(
-                            label: Text('Actual Differential Pressure'),
-                            hintText: 'Enter Limit',
-                            border: OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            if (_actualDifferentialPressure == 1 &&
-                                (value == null || value.isEmpty)) {
-                              return 'Please enter Limit'; //Validation error
-                            }
-                            return null; //Validation Success
-                          },
-                        ),
-                      )
-                    ],
+                  TextFormField(
+                    enabled: _actualDifferentialPressure == 0 ? false : true,
+                    controller: _instrumentActualDifferentialPressure,
+                    decoration: const InputDecoration(
+                      label: Text('Actual Differential Pressure'),
+                      hintText: 'Enter Limit',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (_actualDifferentialPressure == 1 &&
+                          (value == null || value.isEmpty)) {
+                        return 'Please enter Limit'; //Validation error
+                      }
+                      return null; //Validation Success
+                    },
                   ),
 
                   const SizedBox(
@@ -699,54 +529,40 @@ class _AreaClearanceState extends State {
                   ),
                   // * Cleaning Type
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Expanded(
-                        flex: 1,
-                        child: Text('Cleaning Type: '),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: DropdownSearch<String>(
-                          mode: Mode.MENU,
-                          showSelectedItems: true,
-                          showSearchBox: true,
-                          showAsSuffixIcons: true,
-                          dropdownSearchDecoration: const InputDecoration(
-                            label: Text('Cleaning Type'),
-                            focusColor: Colors.blue,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                style: BorderStyle.solid,
-                              ),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please select Cleaning Type';
-                            }
-                            return null;
-                          },
-                          // onFind: (text) async {
-                          //   var response = await Dio().get(
-                          //     SiftingUrl.cleaningType,
-                          //   );
-                          //   if (response.statusCode != 200) {}
-                          //   // var instrumentCodes =
-                          //   //     InstrumentCodeModel.getInstrumentCodes(response.data);
-                          //   // return instrumentCodes;
-                          // },
-                          onChanged: (value) => setState(
-                            () {
-                              cleaningType = value ?? '';
-                            },
-                          ),
+                  DropdownSearch<String>(
+                    mode: Mode.MENU,
+                    showSelectedItems: true,
+                    showSearchBox: true,
+                    showAsSuffixIcons: true,
+                    dropdownSearchDecoration: const InputDecoration(
+                      label: Text('Cleaning Type'),
+                      focusColor: Colors.blue,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          style: BorderStyle.solid,
                         ),
                       ),
-                    ],
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please select Cleaning Type';
+                      }
+                      return null;
+                    },
+                    // onFind: (text) async {
+                    //   var response = await Dio().get(
+                    //     SiftingUrl.cleaningType,
+                    //   );
+                    //   if (response.statusCode != 200) {}
+                    //   // var instrumentCodes =
+                    //   //     InstrumentCodeModel.getInstrumentCodes(response.data);
+                    //   // return instrumentCodes;
+                    // },
+                    onChanged: (value) => setState(
+                      () {
+                        cleaningType = value ?? '';
+                      },
+                    ),
                   ),
 
                   const SizedBox(
