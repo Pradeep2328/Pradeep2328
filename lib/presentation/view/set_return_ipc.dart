@@ -13,9 +13,9 @@ class SetReturnIPC extends StatefulWidget {
 
 class _SetReturnIPCState extends State<SetReturnIPC> {
   final List<IpcDataClass> _avaiableIpc = [];
-  final List<bool> _avaiableIpcSelected = []; // ? Used to denote slected IPC
+  //final List<bool> _avaiableIpcSelected = []; // ? Used to denote slected IPC
   final List<IpcDataClass> _selectedIpc = [];
-  final List<bool> _selectedIpcSelected = [];
+  //final List<bool> _selectedIpcSelected = [];
 
   final ScrollController _scrollControllerAvaiableIpc = ScrollController();
   final ScrollController _scrollControllerSelectedIpc = ScrollController();
@@ -24,15 +24,15 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
   void initState() {
     // Todo : Remove the for loop once API is complete
     for (int i = 0; i < 10; i++) {
-      IpcDataClass ipc =
-          IpcDataClass(ipcId: 'IPC ${101 + i}', tareWight: '${i + 1} kg');
+      IpcDataClass ipc = IpcDataClass(
+          ipcId: 'IPC ${101 + i}', tareWight: '${i + 1} kg', isSelected: false);
       _avaiableIpc.add(ipc);
       //_avaiableIpcSelected.add(false);
     }
     getIpcList();
-    for (var _ in _avaiableIpc) {
-      _avaiableIpcSelected.add(false);
-    }
+    // for (var _ in _avaiableIpc) {
+    //   _avaiableIpcSelected.add(false);
+    // }
     super.initState();
   }
 
@@ -65,13 +65,13 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                     itemCount: _avaiableIpc.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Card(
-                        color: _avaiableIpcSelected[index]
+                        color: _avaiableIpc[index].isSelected
                             ? Colors.blue[50]
                             : Colors.white,
                         elevation: 5.0,
                         child: ListTile(
                           leading: Visibility(
-                            visible: _avaiableIpcSelected[index],
+                            visible: _avaiableIpc[index].isSelected,
                             child: const Icon(Icons.check),
                           ),
                           title: Text(
@@ -80,12 +80,12 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                           subtitle: Text(
                             'Tare Weight : ${_avaiableIpc[index].tareWight}',
                           ),
-                          selected: _avaiableIpcSelected[index],
+                          selected: _avaiableIpc[index].isSelected,
                           selectedColor: Colors.blue[900],
                           onTap: () {
                             setState(() {
-                              _avaiableIpcSelected[index] =
-                                  !_avaiableIpcSelected[index];
+                              _avaiableIpc[index].isSelected =
+                                  !_avaiableIpc[index].isSelected;
                             });
                           },
                         ),
@@ -149,13 +149,13 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                     itemCount: _selectedIpc.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Card(
-                        color: _selectedIpcSelected[index]
+                        color: _selectedIpc[index].isSelected
                             ? Colors.blue[50]
                             : Colors.white,
                         elevation: 5.0,
                         child: ListTile(
                           leading: Visibility(
-                            visible: _selectedIpcSelected[index],
+                            visible: _selectedIpc[index].isSelected,
                             child: const Icon(Icons.check),
                           ),
                           trailing: PopupMenuButton(
@@ -208,13 +208,13 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                           subtitle: Text(
                             'Tare Weight : ${_selectedIpc[index].tareWight}',
                           ),
-                          selected: _selectedIpcSelected[index],
+                          selected: _selectedIpc[index].isSelected,
                           selectedColor: Colors.blue[900],
                           onTap: () {
                             setState(
                               () {
-                                _selectedIpcSelected[index] =
-                                    !_selectedIpcSelected[index];
+                                _selectedIpc[index].isSelected =
+                                    !_selectedIpc[index].isSelected;
                               },
                             );
                           },
@@ -232,44 +232,30 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
   }
 
   void moveIpcLeft() {
-    List<int> removeLocation = [];
-    _selectedIpcSelected.asMap().forEach(
+    _selectedIpc.asMap().forEach(
       (key, value) {
-        if (value == true) {
-          IpcDataClass data = _selectedIpc[key];
+        if (value.isSelected == true) {
+          IpcDataClass data = _selectedIpc[key].copyWith(isSelected: false);
           _avaiableIpc.add(data);
-          _avaiableIpcSelected.add(false);
-          removeLocation.add(key); //Maked for deletion
         }
       },
     );
-
-    // ! Don't change the bellow code. Its has been calibarted to work properly
-    for (int index = removeLocation.length - 1; index >= 0; index--) {
-      _selectedIpc.removeAt(removeLocation[index]);
-      _selectedIpcSelected.removeAt(removeLocation[index]);
-    }
+    _selectedIpc.removeWhere((element) => element.isSelected == true);
 
     setState(() {});
   }
 
   void moveIpcRight() {
-    List<int> removeLocation = [];
-    _avaiableIpcSelected.asMap().forEach(
+    _avaiableIpc.asMap().forEach(
       (key, value) {
-        if (value == true) {
-          IpcDataClass data = _avaiableIpc[key];
+        if (value.isSelected == true) {
+          IpcDataClass data = _avaiableIpc[key].copyWith(isSelected: false);
           _selectedIpc.add(data);
-          _selectedIpcSelected.add(false);
-          removeLocation.add(key); //Maked for deletion
         }
       },
     );
-    // ! Don't change the bellow code. Its has been calibarted to work properly
-    for (int index = removeLocation.length - 1; index >= 0; index--) {
-      _avaiableIpc.removeAt(removeLocation[index]);
-      _avaiableIpcSelected.removeAt(removeLocation[index]);
-    }
+
+    _avaiableIpc.removeWhere((element) => element.isSelected == true);
 
     setState(() {});
   }
