@@ -58,6 +58,7 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                   centerTitle: true,
                   //backgroundColor: Colors.green[100],
                 ),
+                backgroundColor: Colors.amber[100],
                 body: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: ListView.builder(
@@ -142,6 +143,7 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                   ),
                   centerTitle: true,
                 ),
+                backgroundColor: Colors.orange[100],
                 body: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: ListView.builder(
@@ -164,14 +166,14 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                               return <PopupMenuEntry>[
                                 PopupMenuItem(
                                   child: ListTile(
-                                    title: const Text('Release'),
+                                    title: const Text('Return'),
                                     onTap: () {
                                       showDialog(
                                         context: context,
                                         builder: (context) {
                                           return AlertDialog(
                                             title: const Center(
-                                              child: Text('Release IPC'),
+                                              child: Text('Return IPC'),
                                             ),
                                             content: Text(
                                               'Do you wish to release ${_selectedIpc[index].ipcId}?',
@@ -183,7 +185,7 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                                                   Navigator.pop(context);
                                                   Navigator.pop(context);
                                                 },
-                                                child: const Text('Release'),
+                                                child: const Text('Return'),
                                               ),
                                               TextButton(
                                                 onPressed: () {

@@ -8,6 +8,8 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(IpcList.serializer)
+      ..add(Login.serializer)
+      ..add(Logout.serializer)
       ..add(MeshSizeSieve.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),

@@ -1,18 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:granulation/common/global.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
-
-enum MqttEvent {
-  disconnected,
-  connecting,
-  connected,
-  autoReconnect,
-  autoReconnected,
-  subscribed,
-  unsubscribed,
-  subscribeFail,
-  dataReceived
-}
 
 class MqttClientWrapper {
   late MqttServerClient _client;
@@ -61,15 +50,15 @@ class MqttClientWrapper {
 
     _client.connectionMessage = connectMessage;
 
-    //_client.useWebSocket = kIsWeb ? true : false;
-    // _client.onConnected = _onConnected;
-    // _client.onDisconnected = _onDisconnected;
-    // _client.onSubscribed = _onSubscribed;
-    // _client.onUnsubscribed = _onUnsubscribed;
-    // _client.onSubscribeFail = _onSubscribeFail;
-    // _client.onAutoReconnect = _onAutoReconnect;
-    // _client.onAutoReconnected = _onAutoReconnected;
-    // _client.pongCallback = _pong;
+    _client.useWebSocket = kIsWeb ? true : false;
+    _client.onConnected = _onConnected;
+    _client.onDisconnected = _onDisconnected;
+    _client.onSubscribed = _onSubscribed;
+    _client.onUnsubscribed = _onUnsubscribed;
+    _client.onSubscribeFail = _onSubscribeFail;
+    _client.onAutoReconnect = _onAutoReconnect;
+    _client.onAutoReconnected = _onAutoReconnected;
+    _client.pongCallback = _pong;
     _client.logging(on: true);
   }
 

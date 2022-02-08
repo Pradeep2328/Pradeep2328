@@ -356,123 +356,17 @@ class _ShiftingInstrumentClearanceState
                   height: 25.0,
                 ),
                 // * Instrument Clean
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Expanded(
-                      flex: 2,
-                      child: Text('Instrument Clean : '),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Center(
-                        child: ToggleSwitch(
-                          totalSwitches: 2,
-                          initialLabelIndex: _instrumentClean,
-                          labels: const ['Okay', 'Not Okay'],
-                          //TODO Change Okay Icon
-                          activeBgColors: const [
-                            [Colors.green],
-                            [Colors.red]
-                          ],
-                          minWidth: 85.0,
-                          animate: true,
-                          onToggle: (index) {
-                            if (index == 0) {
-                              _instrumentCleanRemarkController.clear();
-                            }
-                            setState(() {
-                              _instrumentClean = index;
-                            });
-                          },
-                          cornerRadius: 20.0,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 5,
-                      child: TextFormField(
-                        enabled: _instrumentClean == 0 ? false : true,
-                        controller: _instrumentCleanRemarkController,
-                        decoration: const InputDecoration(
-                          icon: Icon(Icons.note_add),
-                          label: Text('Instrument Clean Remark'),
-                          hintText: 'Enter Instrument Clean Remark',
-                          border: OutlineInputBorder(),
-                        ),
-                        validator: (value) {
-                          if (_instrumentClean == 1 &&
-                              (value == null || value.isEmpty)) {
-                            return 'Please enter Instrument Cleaned By'; //Validation error
-                          }
-                          return null; //Validation Success
-                        },
-                      ),
-                    ),
-                  ],
+                ToogleRemarkWidget(
+                  label: 'Instrument Clean',
+                  textController: _instrumentCleanRemarkController,
                 ),
                 const SizedBox(
                   height: 25.0,
                 ),
                 //Instrument Logbook Updated
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Expanded(
-                      flex: 2,
-                      child: Text('Instrument Logbook Updated : '),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Center(
-                        child: ToggleSwitch(
-                          totalSwitches: 2,
-                          initialLabelIndex: _instrumentLogbookUpdated,
-                          labels: const ['Okay', 'Not Okay'],
-                          //TODO Change Okay Icon
-                          activeBgColors: const [
-                            [Colors.green],
-                            [Colors.red]
-                          ],
-                          minWidth: 85.0,
-                          animate: true,
-                          onToggle: (index) {
-                            if (index == 0) {
-                              _instrumentLogbookUpdatedRemarkController.clear();
-                            }
-                            setState(() {
-                              _instrumentLogbookUpdated = index;
-                            });
-                          },
-                          cornerRadius: 20.0,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 5,
-                      child: TextFormField(
-                        enabled: _instrumentLogbookUpdated == 0 ? false : true,
-                        controller: _instrumentLogbookUpdatedRemarkController,
-                        decoration: const InputDecoration(
-                          icon: Icon(Icons.note_add),
-                          label: Text('Instrument Logbook Updated Remark'),
-                          hintText: 'Enter Instrument Logbook Updated Remark',
-                          border: OutlineInputBorder(),
-                        ),
-                        validator: (value) {
-                          if (_instrumentLogbookUpdated == 1 &&
-                              (value == null || value.isEmpty)) {
-                            return 'Please enter Instrument Logbook Updated Remark'; //Validation error
-                          }
-                          return null; //Validation Success
-                        },
-                      ),
-                    ),
-                  ],
+                ToogleRemarkWidget(
+                  label: 'Instrument Logbook Updated',
+                  textController: _instrumentLogbookUpdatedRemarkController,
                 ),
                 const SizedBox(
                   height: 25.0,

@@ -1,7 +1,7 @@
 part of 'login_cubit.dart';
 
 abstract class LoginState extends Equatable {
-  String userName = '';
+  final String userName;
   bool isLogin = false;
   LoginState({required this.userName});
   @override
