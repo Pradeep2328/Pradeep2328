@@ -80,37 +80,37 @@ class MqttClientWrapper {
   }
 
   void _onDisconnected() {
-    //TODO Implement onConnected and also logger and then delete the bellow error
+    //TODO Implement onDisconnected and also logger and then delete the bellow error
     throw UnimplementedError('_onDisconnected not implemented');
   }
 
   void _onAutoReconnect() {
-    //TODO Implement onConnected and also logger and then delete the bellow error
+    //TODO Implement onAutoReconnect and also logger and then delete the bellow error
     throw UnimplementedError('_onAutoReconnect not implemented');
   }
 
   void _onAutoReconnected() {
-    //TODO Implement onConnected and also logger and then delete the bellow error
+    //TODO Implement onAutoReconnected and also logger and then delete the bellow error
     throw UnimplementedError('_onAutoReconnected not implemented');
   }
 
   void _onSubscribed(String topic) {
-    //TODO Implement onConnected and also logger and then delete the bellow error
+    //TODO Implement onSubscribed and also logger and then delete the bellow error
     throw UnimplementedError('_onSubscribed not implemented');
   }
 
   void _onUnsubscribed(String? topic) {
-    //TODO Implement onConnected and also logger and then delete the bellow error
+    //TODO Implement onUnsubscribed and also logger and then delete the bellow error
     throw UnimplementedError('_onUnsubscribed not implemented');
   }
 
   void _onSubscribeFail(String topic) {
-    //TODO Implement onConnected and also logger and then delete the bellow error
+    //TODO Implement onSubscribeFail and also logger and then delete the bellow error
     throw UnimplementedError('_onUnsubscribed not implemented');
   }
 
   void _pong() {
-    //TODO Implement onConnected and also logger and then delete the bellow error
+    //TODO Implement pong and also logger and then delete the bellow error
     throw UnimplementedError('_pong not implemented');
   }
 }

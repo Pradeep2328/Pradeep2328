@@ -30,7 +30,7 @@ abstract class IpcIdList implements Built<IpcIdList, IpcIdListBuilder> {
   static IpcIdList fromJson(String jsonString) {
     return serializers
         .deserializeWith(IpcIdList.serializer, jsonDecode(jsonString))!
-        .rebuild((b) => b..ipcIdList ??= ListBuilder<String>());
+        .rebuild((b) => b..ipcIdList);
   }
 
   static List<IpcIdList> fromListJson(String jsonString) {

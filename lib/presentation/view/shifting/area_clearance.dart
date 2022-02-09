@@ -6,7 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:granulation/common/urls.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:granulation/presentation/common/widgets.dart';
+
+import 'package:granulation/presentation/view/common_widgets/widgets.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';

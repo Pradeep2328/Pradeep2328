@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:granulation/common/urls.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:granulation/models/shifting/instrument_code.dart';
-import 'package:granulation/presentation/common/authentication_widget.dart';
-import 'package:granulation/presentation/common/date_time_widget.dart';
-import 'package:granulation/presentation/common/widgets.dart';
+import 'package:granulation/presentation/view/common_widgets/authentication_widget.dart';
+import 'package:granulation/presentation/view/common_widgets/date_time_widget.dart';
+import 'package:granulation/presentation/view/common_widgets/widgets.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class ShiftingInstrumentClearance extends StatefulWidget {
@@ -43,19 +43,16 @@ class _ShiftingInstrumentClearanceState
       TextEditingController();
   final TextEditingController _cleanedByPasswordController =
       TextEditingController();
-  bool _passwordCleanedByUserVisible = false;
 
   final TextEditingController _checkedByUserController =
       TextEditingController();
   final TextEditingController _checkedByPasswordController =
       TextEditingController();
-  bool _passwordCheckedByUserVisible = false;
 
   final TextEditingController _verifiedByUserController =
       TextEditingController();
   final TextEditingController _verifiedByPasswordController =
       TextEditingController();
-  bool _passwordVerifiedByUserVisible = false;
 
   final TextEditingController _instrumentCleanRemarkController =
       TextEditingController();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:granulation/presentation/common/widgets.dart';
 import 'package:granulation/presentation/model/ipc_details.dart';
+import 'package:granulation/presentation/view/common_widgets/widgets.dart';
 
 @immutable
 class SetReturnIPC extends StatefulWidget {

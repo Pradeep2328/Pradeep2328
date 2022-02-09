@@ -2,8 +2,8 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:granulation/presentation/common/authentication_widget.dart';
 import 'package:granulation/presentation/view/about_us.dart';
+import 'package:granulation/presentation/view/common_widgets/authentication_widget.dart';
 import 'package:granulation/presentation/view/contact_us.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:granulation/presentation/view/device_info.dart';
@@ -25,13 +25,6 @@ class _LogInState extends State<LogIn> {
   final TextEditingController _passwordController = TextEditingController();
   final RoundedLoadingButtonController _loginButtonController =
       RoundedLoadingButtonController();
-  bool _passwordVisible = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _passwordVisible = false;
-  }
 
   @override
   Widget build(BuildContext context) {
