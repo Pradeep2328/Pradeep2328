@@ -115,7 +115,6 @@ class _AreaClearanceState extends State {
   int _selectedInstrumentType = 0;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         drawer: MainScaffold.drawer(context),
         appBar: AppBar(
@@ -165,21 +164,35 @@ class _AreaClearanceState extends State {
                     height: 25.0,
                   ),
 
-                  TextFormField(
-                    enabled: _productName == 0 ? false : true,
-                    controller: _instrumentProductName,
-                    decoration: const InputDecoration(
-                      label: Text('Previous Product Name'),
-                      hintText: 'Enter Previous Product Name',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (_productName == 1 &&
-                          (value == null || value.isEmpty)) {
-                        return 'Please enter Product Name'; //Validation error
-                      }
-                      return null; //Validation Success
-                    },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Expanded(
+                        flex: 1,
+                        child: Text('Product Name: '),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: TextFormField(
+                          enabled: _productName == 0 ? false : true,
+                          controller: _instrumentProductName,
+                          decoration: const InputDecoration(
+                            label: Text('Previous Product Name'),
+                            hintText: 'Enter Previous Product Name',
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (_productName == 1 &&
+                                (value == null || value.isEmpty)) {
+                              return 'Please enter Product Name'; //Validation error
+                            }
+                            return null; //Validation Success
+                          },
+                        ),
+                      )
+                    ],
                   ),
 
                   const SizedBox(

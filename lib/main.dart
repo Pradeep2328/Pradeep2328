@@ -8,6 +8,8 @@ import 'package:granulation/services/mqtt_client.dart';
 import 'package:granulation/presentation/view/login.dart';
 import 'package:granulation/presentation/view/shifting/process_start.dart';
 import 'package:granulation/presentation/view/shifting/area_clearance.dart';
+import 'package:granulation/presentation/view/set_return_ipc.dart';
+import 'package:granulation/presentation/view/shifting/sieve_integrity.dart';
 
 void main() async {
   // MqttClientWrapper mqtt = MqttClientWrapper();
@@ -31,9 +33,10 @@ class MainApp extends StatelessWidget {
       // home: SetReturnIPC(),
       // home: ShiftingProcess(),
       // home: LogIn(),
-      // home: AboutUs(),
+      //home: AboutUs(),
       // home: AreaClearnce(),
-      // home: AreaClearnce(),
+      // home: SetReturnIPC(),
+      // home: SieveIntegrity(),
     );
   }
 }
