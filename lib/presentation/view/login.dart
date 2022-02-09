@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:granulation/presentation/common/authentication_widget.dart';
 import 'package:granulation/presentation/view/about_us.dart';
 import 'package:granulation/presentation/view/contact_us.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -170,47 +171,16 @@ class _LogInState extends State<LogIn> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextFormField(
+            UsernameTextFormField(
               controller: _userNameController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.person),
-                label: Text('User Name'),
-                hintText: 'Enter your user name',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter user name'; //Validation error
-                }
-                return null; //Validation Success
-              },
+              label: 'User Name',
             ),
             const SizedBox(
               height: 25.0,
             ),
-            TextFormField(
+            PasswordFormField(
               controller: _passwordController,
-              obscureText: !_passwordVisible,
-              decoration: InputDecoration(
-                icon: const Icon(Icons.password),
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() => _passwordVisible = !_passwordVisible);
-                  },
-                  icon: Icon(!_passwordVisible
-                      ? Icons.visibility
-                      : Icons.visibility_off),
-                ),
-                label: const Text('Password'),
-                hintText: 'Please Enter Password',
-                border: const OutlineInputBorder(),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter password';
-                }
-                return null;
-              },
+              label: 'Password',
             ),
             const SizedBox(
               height: 25.0,

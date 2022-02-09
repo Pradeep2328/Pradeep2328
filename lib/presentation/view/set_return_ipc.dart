@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:granulation/common/widgets.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:granulation/presentation/common/widgets.dart';
 import 'package:granulation/presentation/model/ipc_details.dart';
 
 @immutable
@@ -71,10 +71,13 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                             : Colors.white,
                         elevation: 5.0,
                         child: ListTile(
-                          leading: Visibility(
-                            visible: _avaiableIpc[index].isSelected,
-                            child: const Icon(Icons.check),
-                          ),
+                          leading: _avaiableIpc[index].isSelected
+                              ? const Icon(FeatherIcons.checkSquare)
+                              : const Icon(FeatherIcons.square),
+                          // leading: Visibility(
+                          //   visible: _avaiableIpc[index].isSelected,
+                          //   child: const Icon(Icons.check),
+                          // ),
                           title: Text(
                             _avaiableIpc[index].ipcId,
                           ),
@@ -156,10 +159,13 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                             : Colors.white,
                         elevation: 5.0,
                         child: ListTile(
-                          leading: Visibility(
-                            visible: _selectedIpc[index].isSelected,
-                            child: const Icon(Icons.check),
-                          ),
+                          leading: _selectedIpc[index].isSelected
+                              ? const Icon(FeatherIcons.checkSquare)
+                              : const Icon(FeatherIcons.square),
+                          // leading: Visibility(
+                          //   visible: _selectedIpc[index].isSelected,
+                          //   child: const Icon(Icons.check_sharp),
+                          // ),
                           trailing: PopupMenuButton(
                             icon: const Icon(Icons.more_vert_sharp),
                             itemBuilder: (BuildContext context) {

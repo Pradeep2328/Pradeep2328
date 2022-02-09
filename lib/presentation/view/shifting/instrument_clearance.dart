@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:granulation/common/urls.dart';
-import 'package:granulation/common/widgets.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:granulation/models/shifting/instrument_code.dart';
+import 'package:granulation/presentation/common/authentication_widget.dart';
+import 'package:granulation/presentation/common/date_time_widget.dart';
+import 'package:granulation/presentation/common/widgets.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:toggle_switch/toggle_switch.dart';
-import 'package:intl/intl.dart';
 
 class ShiftingInstrumentClearance extends StatefulWidget {
   const ShiftingInstrumentClearance({Key? key}) : super(key: key);
@@ -66,10 +65,6 @@ class _ShiftingInstrumentClearanceState
       TextEditingController();
   int _instrumentLogbookUpdated = 0;
 
-  final DateRangePickerController _datePickerController =
-      DateRangePickerController();
-  bool _datePickerVisible = false;
-
   final TextEditingController _cleaningRemarkController =
       TextEditingController();
 
@@ -78,14 +73,6 @@ class _ShiftingInstrumentClearanceState
 
   final RoundedLoadingButtonController _nextButtonController =
       RoundedLoadingButtonController();
-
-  @override
-  void initState() {
-    super.initState();
-    _datePickerController.displayDate = DateTime.now();
-    _datePickerController.selectedDate = DateTime.now();
-    _datePickerController.view = DateRangePickerView.month;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -425,192 +412,58 @@ class _ShiftingInstrumentClearanceState
                   height: 25.0,
                 ),
                 // * Cleaned On
-                TextFormField(
+                DatePicker(
                   controller: _dateTextFieldController,
-                  readOnly: true,
-                  //initialValue: ,
-                  decoration: InputDecoration(
-                    label: const Text('Cleaned On (DD-MM-YYYY)'),
-                    hintText: 'Select the date for instrument cleaning',
-                    suffixIcon: IconButton(
-                      onPressed: () => setState(() {
-                        _datePickerVisible = true;
-                      }),
-                      icon: const Icon(Icons.date_range),
-                    ),
-                    border: const OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select the date on which the instrument was cleaned'; //Validation error
-                    }
-                    return null; //Validation Success
-                  },
-                ),
-                Visibility(
-                  visible: _datePickerVisible,
-                  child: SfDateRangePicker(
-                    controller: _datePickerController,
-                    showActionButtons: true,
-                    showTodayButton: true,
-                    onCancel: () => setState(
-                      () {
-                        _datePickerVisible = false;
-                      },
-                    ),
-                    onSubmit: (p0) {
-                      final DateFormat formatter = DateFormat('dd-MM-yyyy');
-                      String date = formatter.format(p0 as DateTime);
-                      _dateTextFieldController.text = date;
-                      setState(() {
-                        _datePickerVisible = false;
-                      });
-                    },
-                  ),
+                  label: 'Cleaned On',
+                  hintLabel: 'Please Select the date of instrument cleaning',
                 ),
                 const SizedBox(
                   height: 25.0,
                 ),
                 // * Cleaned By User Name
-                TextFormField(
+                UsernameTextFormField(
                   controller: _cleanedByUserController,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    label: Text('Cleaned By'),
-                    hintText: 'Enter your Cleaned By',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Cleaned By'; //Validation error
-                    }
-                    return null; //Validation Success
-                  },
+                  label: 'Cleaned By',
                 ),
                 const SizedBox(
                   height: 25.0,
                 ),
                 // * Cleaned By User Password
-                TextFormField(
-                  obscureText: _passwordCleanedByUserVisible,
+                PasswordFormField(
                   controller: _cleanedByPasswordController,
-                  decoration: InputDecoration(
-                    icon: const Icon(Icons.password),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() => _passwordCleanedByUserVisible =
-                            !_passwordCleanedByUserVisible);
-                      },
-                      icon: Icon(!_passwordCleanedByUserVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                    ),
-                    label: const Text('Cleaned By Password'),
-                    hintText: 'Enter your Cleaned By Password',
-                    border: const OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Cleaned By Password'; //Validation error
-                    }
-                    return null; //Validation Success
-                  },
+                  label: 'Cleaned by Password',
                 ),
                 const SizedBox(
                   height: 25.0,
                 ),
                 // * Checked By User Name
-                TextFormField(
+                UsernameTextFormField(
                   controller: _checkedByUserController,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    label: Text('Checked By'),
-                    hintText: 'Enter your Checked By',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Checked By'; //Validation error
-                    }
-                    return null; //Validation Success
-                  },
+                  label: 'Checked By',
                 ),
                 const SizedBox(
                   height: 25.0,
                 ),
                 // * Checked By User Password
-                TextFormField(
-                  obscureText: _passwordCheckedByUserVisible,
+                PasswordFormField(
                   controller: _checkedByPasswordController,
-                  decoration: InputDecoration(
-                    icon: const Icon(Icons.password),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() => _passwordCheckedByUserVisible =
-                            !_passwordCheckedByUserVisible);
-                      },
-                      icon: Icon(!_passwordCheckedByUserVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                    ),
-                    label: const Text('Checked By Password'),
-                    hintText: 'Enter your Checked By Password',
-                    border: const OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Checked By Password'; //Validation error
-                    }
-                    return null; //Validation Success
-                  },
+                  label: 'Checked by Password',
                 ),
                 const SizedBox(
                   height: 25.0,
                 ),
                 // * Verified By User Name
-                TextFormField(
+                UsernameTextFormField(
                   controller: _verifiedByUserController,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    label: Text('Verified By'),
-                    hintText: 'Enter your Verified By',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Verified By'; //Validation error
-                    }
-                    return null; //Validation Success
-                  },
+                  label: 'Verfied By',
                 ),
                 const SizedBox(
                   height: 25.0,
                 ),
                 // * Verified By User Password
-                TextFormField(
-                  obscureText: _passwordVerifiedByUserVisible,
+                PasswordFormField(
                   controller: _verifiedByPasswordController,
-                  decoration: InputDecoration(
-                    icon: const Icon(Icons.password),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() => _passwordVerifiedByUserVisible =
-                            !_passwordVerifiedByUserVisible);
-                      },
-                      icon: Icon(!_passwordVerifiedByUserVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                    ),
-                    label: const Text('Verified By Password'),
-                    hintText: 'Enter your Verified By Password',
-                    border: const OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Verified By Password'; //Validation error
-                    }
-                    return null; //Validation Success
-                  },
+                  label: 'Verfied by Password',
                 ),
                 const SizedBox(
                   height: 25.0,

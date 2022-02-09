@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:granulation/common/widgets.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:granulation/models/shifting/product_code.dart';
+import 'package:granulation/presentation/common/widgets.dart';
 
 class ShiftingProcess extends StatefulWidget {
   const ShiftingProcess({Key? key}) : super(key: key);
