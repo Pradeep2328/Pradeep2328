@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:granulation/models/shifting/product_code.dart';
+import 'package:granulation/models/sifting/product_code.dart';
 import 'package:granulation/presentation/view/common_widgets/widgets.dart';
 
 class ShiftingProcess extends StatefulWidget {
@@ -41,7 +41,7 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                     SizedBox(
                       //Used to make DropdownSearch as of same height as TextFormField
                       height: 55.0,
-                      //child: DropdownSearch<ProductCodeModel>(
+                      //child: DropdownSearch<ProductCode>(
                       child: DropdownSearch<String>(
                         mode: Mode.MENU,
                         showSelectedItems: true,
@@ -63,19 +63,18 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                           }
                           return null;
                         },
-                        //itemAsString: (item) => item!.userAsString(),
-                        onFind: (text) async {
-                          var response = await Dio().get(
-                            'https://5d85ccfb1e61af001471bf60.mockapi.io/user',
-                          ); //https://5d85ccfb1e61af001471bf60.mockapi.io/user
-                          if (response.statusCode != 200) {}
-                          var models =
-                              ProductCodeModel.fromJsonList(response.data);
-                          //return models;
-                          final List<String> productNames =
-                              models.map((product) => product.name).toList();
-                          return productNames;
-                        },
+                        // ! Uncomment once Product Code is generated
+                        // onFind: (text) async {
+                        //   var response = await Dio().get(
+                        //     'https://5d85ccfb1e61af001471bf60.mockapi.io/user',
+                        //   ); //https://5d85ccfb1e61af001471bf60.mockapi.io/user
+                        //   if (response.statusCode != 200) {}
+                        //   var models = ProductCode.fromJsonList(response.data);
+                        //   //return models;
+                        //   final List<String> productNames =
+                        //       models.map((product) => product.name).toList();
+                        //   return productNames;
+                        // },
                         onChanged: (value) => setState(
                           () {
                             productCode = value ?? '';
@@ -112,17 +111,18 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                           }
                           return null;
                         },
-                        onFind: (text) async {
-                          var response = await Dio().get(
-                              'http://5d85ccfb1e61af001471bf55.mockapi.io/user');
-                          // var models =
-                          //     ProductCodeModel.fromJsonList(response.data);
-                          // final List<String> productNames =
-                          //     models.map((product) => product.name).toList();
-                          var productCodes =
-                              ProductCodeModel.productCodes(response);
-                          return productCodes;
-                        },
+                        // ! Uncomment once Product Code is generated
+                        // onFind: (text) async {
+                        //   var response = await Dio().get(
+                        //       'http://5d85ccfb1e61af001471bf55.mockapi.io/user');
+                        //   // var models =
+                        //   //     ProductCode.fromJsonList(response.data);
+                        //   // final List<String> productNames =
+                        //   //     models.map((product) => product.name).toList();
+                        //   var productCodes =
+                        //       ProductCode.productCodes(response);
+                        //   return productCodes;
+                        // },
                         onChanged: (value) => setState(
                           () {
                             batchNumber = value ?? '';
@@ -158,15 +158,15 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                           }
                           return null;
                         },
-                        onFind: (text) async {
-                          var response = await Dio().get(
-                              'http://5d85ccfb1e61af001471bf55.mockapi.io/user');
-                          var models =
-                              ProductCodeModel.fromJsonList(response.data);
-                          final List<String> productNames =
-                              models.map((product) => product.name).toList();
-                          return productNames;
-                        },
+                        // ! Uncomment once Product Code is generated
+                        // onFind: (text) async {
+                        //   var response = await Dio().get(
+                        //       'http://5d85ccfb1e61af001471bf55.mockapi.io/user');
+                        //   var models = ProductCode.fromJsonList(response.data);
+                        //   final List<String> productNames =
+                        //       models.map((product) => product.name).toList();
+                        //   return productNames;
+                        // },
                         onChanged: (value) => setState(
                           () {
                             area = value ?? '';
@@ -202,15 +202,15 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                           }
                           return null;
                         },
-                        onFind: (text) async {
-                          var response = await Dio().get(
-                              'http://5d85ccfb1e61af001471bf55.mockapi.io/user');
-                          var models =
-                              ProductCodeModel.fromJsonList(response.data);
-                          final List<String> productNames =
-                              models.map((product) => product.name).toList();
-                          return productNames;
-                        },
+                        // ! Uncomment once Product Code is generated
+                        // onFind: (text) async {
+                        //   var response = await Dio().get(
+                        //       'http://5d85ccfb1e61af001471bf55.mockapi.io/user');
+                        //   var models = ProductCode.fromJsonList(response.data);
+                        //   final List<String> productNames =
+                        //       models.map((product) => product.name).toList();
+                        //   return productNames;
+                        // },
                         onChanged: (value) => setState(
                           () {
                             roomName = value ?? '';

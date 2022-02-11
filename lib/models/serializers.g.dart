@@ -7,6 +7,7 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(InstrumentCode.serializer)
       ..add(IpcIdList.serializer)
       ..add(IpcList.serializer)
       ..add(IpcNextStep.serializer)
@@ -14,6 +15,13 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Login.serializer)
       ..add(Logout.serializer)
       ..add(MeshSizeSieve.serializer)
+      ..add(ProductCode.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
