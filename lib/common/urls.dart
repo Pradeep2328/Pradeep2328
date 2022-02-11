@@ -20,4 +20,6 @@ class SiftingUrl {
 
   // * Mesh Size of Sieve
   static final ipcId = '${ServerUrl.apiUrl}/ipc-id';
+  static final ipcStatus = '${ServerUrl.apiUrl}/ipc-status';
+  static final nextStep = '${ServerUrl.apiUrl}/next-step';
 }

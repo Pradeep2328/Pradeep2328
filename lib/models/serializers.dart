@@ -4,6 +4,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:granulation/models/ipc_id_list.dart';
+import 'package:granulation/models/ipc_next_step.dart';
+import 'package:granulation/models/ipc_status_list.dart';
 import 'package:granulation/models/login.dart';
 import 'package:granulation/models/logout.dart';
 import 'package:granulation/models/shifting/mesh_size_sieve.dart';
@@ -17,6 +19,8 @@ part 'serializers.g.dart';
   IpcIdList,
   IpcList,
   MeshSizeSieve,
+  IpcStatusList,
+  IpcNextStep,
 ])
 final Serializers serializers =
     (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

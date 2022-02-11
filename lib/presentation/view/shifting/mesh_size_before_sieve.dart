@@ -1,9 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:granulation/common/urls.dart';
 import 'package:granulation/models/ipc_id_list.dart';
-import 'package:dropdown_search/dropdown_search.dart';
+import 'package:granulation/models/ipc_next_step.dart';
+//import 'package:dropdown_search/dropdown_search.dart';
+import 'package:granulation/models/ipc_status_list.dart';
 import 'package:granulation/models/shifting/mesh_size_sieve.dart';
+import 'package:granulation/presentation/view/common_widgets/authentication_widget.dart';
+import 'package:granulation/presentation/view/common_widgets/selction_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/test_operation_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/widgets.dart';
 import 'package:reference_wrapper/reference_wrapper.dart';
@@ -17,6 +22,7 @@ class MeshSizeBeforeSieve extends StatefulWidget {
 }
 
 class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
+  final TextEditingController _operatorNameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final RoundedLoadingButtonController _nextButtonController =
       RoundedLoadingButtonController();
@@ -31,6 +37,10 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
   final TextEditingController _tareWeightIpcController =
       TextEditingController();
   final Ref<String> _unit = Ref<String>('kg'); //Default Unit
+  final Ref<String> nextStep = Ref<String>('');
+
+  //Enable Flag
+  final Ref<bool> nextStepEnabled = Ref(false);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +53,13 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
             key: _formKey,
             child: Column(
               children: <Widget>[
+                UsernameTextFormField(
+                  controller: _operatorNameController,
+                  label: 'Operator Name',
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
                 // * Mesh Size of Sieve
                 DropdownSearch<String>(
                   mode: Mode.MENU,
@@ -71,7 +88,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                     if (response.statusCode != 200) {}
                     final meshSize = MeshSizeSieve.fromJson(
                         response.data); // .getInstrumentCodes(response.data);
-                    return meshSize!.meshSize.toList();
+                    return meshSize.meshSize.toList();
                   },
                   onChanged: (value) => setState(
                     () {
@@ -85,7 +102,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                 // * Integrity and Dryness of Sieve (Before Sieving) Check and Remark
                 ToogleRemarkWidget(
                   textController: _integrityDrynessSieveRemarkController,
-                  label: 'Integrity and Dryness of Sieve (Before Sieving)',
+                  label: 'Integrity and Dryness of Sieve\n(Before Sieving)',
                 ),
                 const SizedBox(
                   height: 25.0,
@@ -133,7 +150,61 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   label: 'Tare Weight for IPC',
                   unit: _unit,
                 ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                // * IPC Status
+                DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  showSearchBox: true,
+                  showAsSuffixIcons: true,
+                  dropdownSearchDecoration: const InputDecoration(
+                    label: Text('IPC Status'),
+                    focusColor: Colors.blue,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        style: BorderStyle.solid,
+                      ),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select IPC Status';
+                    }
+                    return null;
+                  },
+                  onFind: (text) async {
+                    var response = await Dio().get(
+                      SiftingUrl.ipcStatus,
+                    );
+                    if (response.statusCode != 200) {}
+                    final ipcStatusList = IpcStatusList.fromJson(response.data);
+                    return ipcStatusList.ipcStatus.toList();
+                  },
+                  onChanged: (value) => setState(
+                    () {
+                      ipcId = value ?? '';
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                // * Next Step
+                DropDownSearchSingleItemSelect(
+                  url: SiftingUrl.nextStep,
+                  label: 'Next Step',
+                  itemSelected: nextStep,
+                  enabled: nextStepEnabled,
+                  jsonDecode: nextStepDecodeJson,
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                // * Buttons
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     RoundedLoadingButton(
                       onPressed: () async {
@@ -201,5 +272,10 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
         ),
       ),
     );
+  }
+
+  List<String> nextStepDecodeJson(String plainText) {
+    final list = IpcNextStep.fromJson(plainText);
+    return list.ipcNextStep.toList();
   }
 }

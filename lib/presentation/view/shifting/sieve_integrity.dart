@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:granulation/common/widgets.dart';
+import 'package:granulation/presentation/view/common_widgets/widgets.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class SieveIntegrity extends StatefulWidget {

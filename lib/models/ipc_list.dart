@@ -32,8 +32,8 @@ abstract class IpcList implements Built<IpcList, IpcListBuilder> {
 
   static IpcList? fromJson(String jsonString) {
     return serializers
-        .deserializeWith(IpcList.serializer, jsonDecode(jsonString))
-        ?.rebuild((b) => b
+        .deserializeWith(IpcList.serializer, jsonDecode(jsonString))!
+        .rebuild((b) => b
           ..ipcCode ??= ''
           ..tareWeight ??= '');
   }
