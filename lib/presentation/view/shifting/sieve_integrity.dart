@@ -1,15 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-<<<<<<< Updated upstream
-import 'package:granulation/presentation/view/common_widgets/widgets.dart';
-=======
 import 'package:granulation/presentation/view/common_widgets/date_time_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/test_operation_widget.dart';
-// import 'package:granulation/common/widgets.dart';
-// import 'package:granulation/presentation/common/widgets.dart';
 import 'package:granulation/presentation/view/common_widgets/widgets.dart';
 import 'package:reference_wrapper/reference_wrapper.dart';
->>>>>>> Stashed changes
 import 'package:toggle_switch/toggle_switch.dart';
 
 class SieveIntegrity extends StatefulWidget {

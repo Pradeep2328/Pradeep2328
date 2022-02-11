@@ -63,3 +63,75 @@ class _DropDownSearchSingleItemSelectState
     );
   }
 }
+
+class DropDownSearchMultiItemSelect extends StatefulWidget {
+  final String url;
+  final String label;
+  final List<String> itemSelected;
+  final Ref<bool> enabled;
+  final List<String> Function(String) jsonDecode;
+
+  const DropDownSearchMultiItemSelect({
+    required this.url,
+    required this.label,
+    required this.itemSelected,
+    required this.enabled,
+    required this.jsonDecode,
+    Key? key,
+  }) : super(key: key);
+  @override
+  State<DropDownSearchMultiItemSelect> createState() =>
+      _DropDownSearchMultiItemSelectState();
+}
+
+class _DropDownSearchMultiItemSelectState
+    extends State<DropDownSearchMultiItemSelect> {
+  @override
+  Widget build(BuildContext context) {
+    return DropdownSearch<String>.multiSelection(
+      enabled: widget.enabled.ref,
+      mode: Mode.MENU,
+      showSelectedItems: true,
+      showSearchBox: true,
+      showAsSuffixIcons: true,
+      dropdownSearchDecoration: InputDecoration(
+        label: Text(widget.label),
+        focusColor: Colors.blue,
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(
+            style: BorderStyle.solid,
+          ),
+        ),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please select ${widget.label}';
+        }
+        return null;
+      },
+      items: const [
+        'Test01',
+        'Test02',
+        'Test03',
+        'Test04',
+        'Test05',
+      ],
+      // ! Commented for testing
+      // onFind: (text) async {
+      //   var response = await Dio().get(
+      //     widget.url,
+      //   );
+      //   if (response.statusCode != 200) {}
+      //   return widget.jsonDecode(response.data as String);
+      // },
+      onChanged: (value) => setState(
+        () {
+          widget.itemSelected.clear();
+          for (var element in value) {
+            widget.itemSelected.add(element);
+          }
+        },
+      ),
+    );
+  }
+}

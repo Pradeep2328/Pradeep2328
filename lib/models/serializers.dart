@@ -11,6 +11,7 @@ import 'package:granulation/models/drop_down_search/ipc_next_step.dart';
 import 'package:granulation/models/drop_down_search/ipc_status_list.dart';
 
 import 'package:granulation/models/sifting/instrument_code.dart';
+import 'package:granulation/models/sifting/material_sifted.dart';
 import 'package:granulation/models/sifting/mesh_size_sieve.dart';
 import 'package:granulation/models/sifting/product_code.dart';
 
@@ -26,6 +27,8 @@ part 'serializers.g.dart';
   InstrumentCode,
   MeshSizeSieve,
   ProductCode,
+  MaterialSifted,
+  DateTime,
 ])
 final Serializers serializers =
     (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

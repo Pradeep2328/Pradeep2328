@@ -82,3 +82,57 @@ class _DatePickerState extends State<DatePicker> {
     );
   }
 }
+
+enum TimeWidgetEvent { Start, Stop }
+
+class GetTimeWidget extends StatefulWidget {
+  final TextEditingController controller;
+  final TimeWidgetEvent mode;
+  final String label;
+  const GetTimeWidget({
+    required this.controller,
+    required this.mode,
+    required this.label,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<GetTimeWidget> createState() => _GetTimeWidgetState();
+}
+
+class _GetTimeWidgetState extends State<GetTimeWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        TextFormField(
+          controller: widget.controller,
+          readOnly: true,
+          //initialValue: ,
+          decoration: InputDecoration(
+            label: Text(widget.label),
+            hintText: 'Please Get ${widget.label} from sever',
+            suffixIcon: TextButton.icon(
+              onPressed: () {
+                //TODO Get time API
+              },
+              icon: (widget.mode == TimeWidgetEvent.Start)
+                  ? const Icon(Icons.start_rounded)
+                  : const Icon(Icons.stop_circle),
+              label: (widget.mode == TimeWidgetEvent.Start)
+                  ? const Text('Start')
+                  : const Text('Stop'),
+            ),
+            border: const OutlineInputBorder(),
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please Get ${widget.label} from srever'; //Validation error
+            }
+            return null; //Validation Success
+          },
+        ),
+      ],
+    );
+  }
+}

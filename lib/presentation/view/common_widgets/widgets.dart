@@ -207,7 +207,7 @@ class _ToogleRemarkWidgetState extends State<ToogleRemarkWidget> {
                     [Colors.green],
                     [Colors.red]
                   ],
-                  minWidth: 100.0,
+                  minWidth: 125.0,
                   // animate: true,
                   onToggle: (index) {
                     if (index == 0) {

@@ -5,8 +5,10 @@ import 'package:granulation/common/urls.dart';
 import 'package:granulation/models/drop_down_search/ipc_id_list.dart';
 import 'package:granulation/models/drop_down_search/ipc_next_step.dart';
 import 'package:granulation/models/drop_down_search/ipc_status_list.dart';
+import 'package:granulation/models/sifting/material_sifted.dart';
 import 'package:granulation/models/sifting/mesh_size_sieve.dart';
 import 'package:granulation/presentation/view/common_widgets/authentication_widget.dart';
+import 'package:granulation/presentation/view/common_widgets/date_time_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/selction_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/test_operation_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/widgets.dart';
@@ -29,17 +31,22 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
       RoundedLoadingButtonController();
   final RoundedLoadingButtonController _changeSieveButtonController =
       RoundedLoadingButtonController();
+
+  // ? Final Data
   String meshSizeSieve = '';
   String ipcId = '';
-  final TextEditingController _integrityDrynessSieveRemarkController =
-      TextEditingController();
-  final TextEditingController _tareWeightIpcController =
-      TextEditingController();
+  final _integrityDrynessSieveRemarkController = TextEditingController();
+  final _tareWeightIpcController = TextEditingController();
+  final _useBeforeController = TextEditingController();
   final Ref<String> _unit = Ref<String>('kg'); //Default Unit
   final Ref<String> nextStep = Ref<String>('');
-
+  final Ref<String> lebelHeader = Ref<String>('');
+  final _sifterStartTime = TextEditingController();
+  final List<String> materialSifted = [];
   //Enable Flag
   final Ref<bool> nextStepEnabled = Ref(false);
+  final Ref<bool> labelHeaderEnabled = Ref(false);
+  final Ref<bool> materialSiftedEnabled = Ref(true);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,7 +136,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   },
                   onFind: (text) async {
                     var response = await Dio().get(
-                      SiftingUrl.ipcId,
+                      DropDownUrl.ipcId,
                     );
                     if (response.statusCode != 200) {}
                     final ipcIdList = IpcIdList.fromJson(response.data);
@@ -175,7 +182,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   },
                   onFind: (text) async {
                     var response = await Dio().get(
-                      SiftingUrl.ipcStatus,
+                      DropDownUrl.ipcStatus,
                     );
                     if (response.statusCode != 200) {}
                     final ipcStatusList = IpcStatusList.fromJson(response.data);
@@ -192,12 +199,51 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                 ),
                 // * Next Step
                 DropDownSearchSingleItemSelect(
-                  url: SiftingUrl.nextStep,
+                  url: DropDownUrl.nextStep,
                   label: 'Next Step',
                   itemSelected: nextStep,
                   enabled: nextStepEnabled,
                   jsonDecode: nextStepDecodeJson,
                 ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                DropDownSearchSingleItemSelect(
+                  url: DropDownUrl.labelHeader,
+                  label: 'Label Header',
+                  itemSelected: lebelHeader,
+                  enabled: labelHeaderEnabled,
+                  jsonDecode: labelHeaderDecodeJson,
+                ),
+                // * Label Header
+                const SizedBox(
+                  height: 25.0,
+                ),
+                // * User Before
+                DatePicker(
+                  controller: _useBeforeController,
+                  label: 'Use Before',
+                  hintLabel: 'Please Select the date to use material brfore',
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                GetTimeWidget(
+                  controller: _sifterStartTime,
+                  label: 'Sifter Start Time',
+                  mode: TimeWidgetEvent.Start,
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                DropDownSearchMultiItemSelect(
+                  enabled: materialSiftedEnabled,
+                  label: 'Materials Sifted',
+                  url: SiftingUrl.materialSifted,
+                  jsonDecode: materialSiftedDecodeJson,
+                  itemSelected: materialSifted,
+                ),
+
                 const SizedBox(
                   height: 25.0,
                 ),
@@ -247,10 +293,9 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                     ),
                     RoundedLoadingButton(
                       onPressed: () async {
+                        print('Items Selected $materialSifted');
                         // Validate returns true if the form is valid, or false otherwise.
                         if (_formKey.currentState!.validate()) {
-                          print(
-                              'Tare Weight : ${_tareWeightIpcController.text} ${_unit.ref}');
                           // TODO Implement uncomment return and success
                           // _nextButtonController.success();
                           // return;
@@ -276,5 +321,15 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
   List<String> nextStepDecodeJson(String plainText) {
     final list = IpcNextStep.fromJson(plainText);
     return list.ipcNextStep.toList();
+  }
+
+  List<String> labelHeaderDecodeJson(String plainText) {
+    final list = IpcNextStep.fromJson(plainText);
+    return list.ipcNextStep.toList();
+  }
+
+  List<String> materialSiftedDecodeJson(String plainText) {
+    final list = MaterialSifted.fromJson(plainText);
+    return list.materialsSifted.toList();
   }
 }
