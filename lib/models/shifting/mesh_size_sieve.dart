@@ -30,10 +30,10 @@ abstract class MeshSizeSieve
         serializers.serializeWith(MeshSizeSieve.serializer, this));
   }
 
-  static MeshSizeSieve? fromJson(String jsonString) {
+  static MeshSizeSieve fromJson(String jsonString) {
     return serializers
-        .deserializeWith(MeshSizeSieve.serializer, jsonDecode(jsonString))
-        ?.rebuild((b) => b..meshSize);
+        .deserializeWith(MeshSizeSieve.serializer, jsonDecode(jsonString))!
+        .rebuild((b) => b..meshSize);
   }
 
   static List<MeshSizeSieve> fromListJson(String jsonString) {
