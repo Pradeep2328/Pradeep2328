@@ -33,7 +33,7 @@ abstract class MaterialSifted
   static MaterialSifted fromJson(String jsonString) {
     return serializers
         .deserializeWith(MaterialSifted.serializer, jsonDecode(jsonString))!
-        .rebuild((b) => b..materialsSifted ??= ListBuilder<String>());
+        .rebuild((b) => b..materialsSifted);
   }
 
   static List<MaterialSifted> fromListJson(String jsonString) {

@@ -103,36 +103,32 @@ class GetTimeWidget extends StatefulWidget {
 class _GetTimeWidgetState extends State<GetTimeWidget> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        TextFormField(
-          controller: widget.controller,
-          readOnly: true,
-          //initialValue: ,
-          decoration: InputDecoration(
-            label: Text(widget.label),
-            hintText: 'Please Get ${widget.label} from sever',
-            suffixIcon: TextButton.icon(
-              onPressed: () {
-                //TODO Get time API
-              },
-              icon: (widget.mode == TimeWidgetEvent.Start)
-                  ? const Icon(Icons.start_rounded)
-                  : const Icon(Icons.stop_circle),
-              label: (widget.mode == TimeWidgetEvent.Start)
-                  ? const Text('Start')
-                  : const Text('Stop'),
-            ),
-            border: const OutlineInputBorder(),
-          ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please Get ${widget.label} from srever'; //Validation error
-            }
-            return null; //Validation Success
+    return TextFormField(
+      controller: widget.controller,
+      readOnly: true,
+      //initialValue: ,
+      decoration: InputDecoration(
+        label: Text(widget.label),
+        hintText: 'Please Get ${widget.label} from sever',
+        suffixIcon: TextButton.icon(
+          onPressed: () {
+            //TODO Get time API
           },
+          icon: (widget.mode == TimeWidgetEvent.Start)
+              ? const Icon(Icons.play_circle)
+              : const Icon(Icons.stop_circle),
+          label: (widget.mode == TimeWidgetEvent.Start)
+              ? const Text('Start')
+              : const Text('Stop'),
         ),
-      ],
+        border: const OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please Get ${widget.label} from server'; //Validation error
+        }
+        return null; //Validation Success
+      },
     );
   }
 }
