@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:granulation/presentation/view/device_info.dart';
+import 'package:granulation/presentation/view/device_information.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class MainScaffold {
@@ -42,7 +42,7 @@ class MainScaffold {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DeviceInfo(),
+                  builder: (context) => DeviceInfomation(),
                 ),
               );
               Navigator.pop(context);

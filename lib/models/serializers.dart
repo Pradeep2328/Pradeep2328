@@ -1,10 +1,11 @@
 // serializers.dart
-
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
+import 'package:built_collection/built_collection.dart';
+
 import 'package:built_value/standard_json_plugin.dart';
-import 'package:granulation/models/login.dart';
+import 'package:granulation/models/login_request.dart';
 import 'package:granulation/models/logout.dart';
+
 import 'package:granulation/models/drop_down_search/ipc_id_list.dart';
 import 'package:granulation/models/drop_down_search/ipc_list.dart';
 import 'package:granulation/models/drop_down_search/ipc_next_step.dart';
@@ -18,7 +19,6 @@ import 'package:granulation/models/sifting/product_code.dart';
 part 'serializers.g.dart';
 
 @SerializersFor([
-  Login,
   Logout,
   IpcIdList,
   IpcList,

@@ -2,14 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
-class DeviceInfo extends StatefulWidget {
-  DeviceInfo({Key? key}) : super(key: key);
+class DeviceInfomation extends StatefulWidget {
+  const DeviceInfomation({Key? key}) : super(key: key);
 
   @override
-  _DeviceInfoState createState() => _DeviceInfoState();
+  _DeviceInfomationState createState() => _DeviceInfomationState();
 }
 
-class _DeviceInfoState extends State<DeviceInfo> {
+class _DeviceInfomationState extends State<DeviceInfomation> {
   final info = NetworkInfo();
   String wifiName = '';
   String wifiBSSID = '';

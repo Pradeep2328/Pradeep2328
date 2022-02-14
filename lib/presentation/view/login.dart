@@ -2,11 +2,15 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:granulation/api/authentication.dart';
+import 'package:granulation/api/main_chopper_client.dart';
+import 'package:granulation/common/global.dart';
+import 'package:granulation/models/login_request.dart';
 import 'package:granulation/presentation/view/about_us.dart';
 import 'package:granulation/presentation/view/common_widgets/authentication_widget.dart';
 import 'package:granulation/presentation/view/contact_us.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:granulation/presentation/view/device_info.dart';
+import 'package:granulation/presentation/view/device_information.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 @immutable
@@ -75,7 +79,7 @@ class _LogInState extends State<LogIn> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DeviceInfo(),
+                    builder: (context) => DeviceInfomation(),
                   ),
                 );
                 Navigator.pop(context);
@@ -184,6 +188,17 @@ class _LogInState extends State<LogIn> {
                 if (_formKey.currentState!.validate()) {
                   final userName = _userNameController.text;
                   final password = _passwordController.text;
+                  LoginRequest loginJson = LoginRequest(
+                    userId: userName,
+                    password: password,
+                    deviceSerialNumber: DeviceInfo.serialNumber,
+                  );
+                  final loginJsonString = loginJson.toJson();
+                  print('LoginJsonString : $loginJsonString');
+                  final loginService =
+                      AuthenticationService.create(MainChopperClient.client);
+                  final response = await loginService.login(loginJsonString);
+                  print('Response : $response');
                   _loginButtonController.success();
                   return;
                 }
@@ -201,7 +216,7 @@ class _LogInState extends State<LogIn> {
   }
 
   Widget drawLoginScreen() {
-    if (kIsWeb) {
+    if (kIsWeb || Platform.isWindows) {
       return Row(
         children: <Widget>[
           Expanded(
