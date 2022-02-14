@@ -1,6 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:granulation/common/widgets.dart';
+import 'package:granulation/presentation/view/common_widgets/date_time_widget.dart';
+import 'package:granulation/presentation/view/common_widgets/test_operation_widget.dart';
+import 'package:granulation/presentation/view/common_widgets/widgets.dart';
+import 'package:reference_wrapper/reference_wrapper.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class SieveIntegrity extends StatefulWidget {
@@ -15,12 +17,25 @@ class _SieveIntegrity extends State {
       TextEditingController();
   int _sieveintegrity = 0;
 
+  final TextEditingController _retainedPowderController =
+      TextEditingController();
+  int _retainedPowder = 0;
+
   final TextEditingController _sieveIntegrityControllerBeforeSieving =
       TextEditingController();
   int _sieveintegritybeforesieving = 0;
 
   final TextEditingController _sieveMeshSizeController =
       TextEditingController();
+
+  final TextEditingController _dateTextFieldController =
+      TextEditingController();
+
+  final TextEditingController _grossWeightController = TextEditingController();
+
+  final TextEditingController _netWeightController = TextEditingController();
+
+  final Ref<String> _unit = Ref<String>('kg');
   final int _sievemeshsize = 0;
 
   static const List<String> _instrumentType = [
@@ -233,19 +248,10 @@ class _SieveIntegrity extends State {
                 const SizedBox(
                   height: 25.0,
                 ),
-                TextFormField(
+                WeightInputWidget(
                   controller: _sieveMeshSizeController,
-                  decoration: const InputDecoration(
-                    label: Text('Tare Weight of IPC'),
-                    hintText: 'Enter Tare Weight',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter tare weight'; //Validation error
-                    }
-                    return null; //Validation Success
-                  },
+                  label: 'Tare Weight for IPC',
+                  unit: _unit,
                 ),
                 const SizedBox(
                   height: 25.0,
@@ -306,6 +312,120 @@ class _SieveIntegrity extends State {
                       _selectedInstrumentType = _nextstep.indexOf(newValue!);
                     });
                   },
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                DatePicker(
+                  controller: _dateTextFieldController,
+                  label: 'Use Before',
+                  hintLabel: 'Please Select the date',
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  decoration: const InputDecoration(
+                    label: Text('Label Header'),
+                    focusColor: Colors.blue,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        style: BorderStyle.solid,
+                      ),
+                    ),
+                  ),
+                  icon: const Icon(Icons.arrow_drop_down),
+                  value: _nextstep[_selectedInstrumentType],
+                  items: _nextstep
+                      .map<DropdownMenuItem<String>>(
+                        (String value) => DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedInstrumentType = _nextstep.indexOf(newValue!);
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                WeightInputWidget(
+                  controller: _grossWeightController,
+                  label: 'Gross Weight of Sieved Material',
+                  unit: _unit,
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                WeightInputWidget(
+                  controller: _netWeightController,
+                  label: 'Net Weight of Sieved Material',
+                  unit: _unit,
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Expanded(
+                      flex: 2,
+                      child: Text('Abnormality in Retained Powder:'),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Center(
+                        child: ToggleSwitch(
+                          totalSwitches: 2,
+                          initialLabelIndex: _retainedPowder,
+                          labels: const ['Ok', 'Not Ok'],
+                          //TODO Change Okay Icon
+                          activeBgColors: const [
+                            [Colors.green],
+                            [Colors.red]
+                          ],
+                          minWidth: 85.0,
+                          animate: true,
+                          onToggle: (index) {
+                            if (index == 0) {
+                              _retainedPowderController.clear();
+                            }
+                            setState(() {
+                              _retainedPowder = index;
+                            });
+                          },
+                          cornerRadius: 20.0,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: TextFormField(
+                        enabled: _retainedPowder == 0 ? false : true,
+                        controller: _retainedPowderController,
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.note_add),
+                          label: Text('Integrity of Sieve Remark'),
+                          hintText: 'Enter Remark',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (_retainedPowder == 1 &&
+                              (value == null || value.isEmpty)) {
+                            return 'Please enter rmeark'; //Validation error
+                          }
+                          return null; //Validation Success
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

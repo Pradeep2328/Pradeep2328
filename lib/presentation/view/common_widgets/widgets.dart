@@ -1,11 +1,9 @@
-import 'dart:io';
 //import 'package:dartz/dartz.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:granulation/presentation/view/device_info.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:granulation/presentation/view/device_info.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class MainScaffold {
   static AppBar appBar(String title) {
@@ -207,7 +205,7 @@ class _ToogleRemarkWidgetState extends State<ToogleRemarkWidget> {
                     [Colors.green],
                     [Colors.red]
                   ],
-                  minWidth: 100.0,
+                  minWidth: 125.0,
                   // animate: true,
                   onToggle: (index) {
                     if (index == 0) {
@@ -256,6 +254,40 @@ class _ToogleRemarkWidgetState extends State<ToogleRemarkWidget> {
           return null; //Validation Success
         },
       ),
+    );
+  }
+}
+
+class ReadOnlyTextWidget extends StatefulWidget {
+  final TextEditingController controller;
+  final String label;
+  final Function() onPressedCallback;
+  const ReadOnlyTextWidget({
+    required this.controller,
+    required this.label,
+    required this.onPressedCallback,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<ReadOnlyTextWidget> createState() => _ReadOnlyTextWidgetState();
+}
+
+class _ReadOnlyTextWidgetState extends State<ReadOnlyTextWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: widget.controller,
+      decoration: InputDecoration(
+          label: Text(widget.label),
+          hintText: 'Enter ${widget.label}',
+          border: const OutlineInputBorder(),
+          icon: TextButton.icon(
+            onPressed: widget.onPressedCallback,
+            label: const Text('Refresh'),
+            icon: const Icon(Icons.refresh),
+          )),
+      readOnly: true,
     );
   }
 }

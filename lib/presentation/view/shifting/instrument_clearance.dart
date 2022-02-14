@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:granulation/common/urls.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:granulation/models/shifting/instrument_code.dart';
+import 'package:granulation/models/sifting/instrument_code.dart';
+
 import 'package:granulation/presentation/view/common_widgets/authentication_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/date_time_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/widgets.dart';
@@ -141,15 +142,16 @@ class _ShiftingInstrumentClearanceState
                     }
                     return null;
                   },
-                  onFind: (text) async {
-                    var response = await Dio().get(
-                      SiftingUrl.instrumentCodeUrl,
-                    );
-                    if (response.statusCode != 200) {}
-                    var instrumentCodes =
-                        InstrumentCodeModel.getInstrumentCodes(response.data);
-                    return instrumentCodes;
-                  },
+                  // ! Uncomment once InstrumentCode is generated
+                  // onFind: (text) async {
+                  //   var response = await Dio().get(
+                  //     SiftingUrl.instrumentCodeUrl,
+                  //   );
+                  //   if (response.statusCode != 200) {}
+                  //   var instrumentCodes =
+                  //       InstrumentCode.getInstrumentCodes(response.data);
+                  //   return instrumentCodes;
+                  // },
                   onChanged: (value) => setState(
                     () {
                       instrumentCode = value ?? '';
@@ -184,16 +186,17 @@ class _ShiftingInstrumentClearanceState
                         }
                         return null;
                       },
-                      onFind: (text) async {
-                        var response = await Dio().get(
-                          SiftingUrl.meshSize,
-                        );
-                        if (response.statusCode != 200) {}
-                        var instrumentCodes =
-                            InstrumentCodeModel.getInstrumentCodes(
-                                response.data);
-                        return instrumentCodes;
-                      },
+                      // ! Uncomment once InstrumentCode is generated
+                      // onFind: (text) async {
+                      //   var response = await Dio().get(
+                      //     SiftingUrl.meshSize,
+                      //   );
+                      //   if (response.statusCode != 200) {}
+                      //   var instrumentCodes =
+                      //       InstrumentCode.getInstrumentCodes(
+                      //           response.data);
+                      //   return instrumentCodes;
+                      // },
                       onChanged: (value) => setState(
                         () {
                           meshSize = value ?? '';
@@ -230,16 +233,17 @@ class _ShiftingInstrumentClearanceState
                         }
                         return null;
                       },
-                      onFind: (text) async {
-                        var response = await Dio().get(
-                          SiftingUrl.screenSize,
-                        );
-                        if (response.statusCode != 200) {}
-                        var instrumentCodes =
-                            InstrumentCodeModel.getInstrumentCodes(
-                                response.data);
-                        return instrumentCodes;
-                      },
+                      // ! Uncomment once InstrumentCode is generated
+                      // onFind: (text) async {
+                      //   var response = await Dio().get(
+                      //     SiftingUrl.screenSize,
+                      //   );
+                      //   if (response.statusCode != 200) {}
+                      //   var instrumentCodes =
+                      //       InstrumentCode.getInstrumentCodes(
+                      //           response.data);
+                      //   return instrumentCodes;
+                      // },
                       onChanged: (value) => setState(
                         () {
                           screenSize = value ?? '';
@@ -272,15 +276,16 @@ class _ShiftingInstrumentClearanceState
                     }
                     return null;
                   },
-                  onFind: (text) async {
-                    var response = await Dio().get(
-                      SiftingUrl.previousProductCodeUrl,
-                    );
-                    if (response.statusCode != 200) {}
-                    var instrumentCodes =
-                        InstrumentCodeModel.getInstrumentCodes(response.data);
-                    return instrumentCodes;
-                  },
+                  // ! Uncomment once InstrumentCode is generated
+                  // onFind: (text) async {
+                  //   var response = await Dio().get(
+                  //     SiftingUrl.previousProductCodeUrl,
+                  //   );
+                  //   if (response.statusCode != 200) {}
+                  //   var instrumentCodes =
+                  //       InstrumentCode.getInstrumentCodes(response.data);
+                  //   return instrumentCodes;
+                  // },
                   onChanged: (value) => setState(
                     () {
                       productCode = value ?? '';
@@ -321,15 +326,16 @@ class _ShiftingInstrumentClearanceState
                     }
                     return null;
                   },
-                  onFind: (text) async {
-                    var response = await Dio().get(
-                      SiftingUrl.previousProductBatchNumberUrl,
-                    );
-                    if (response.statusCode != 200) {}
-                    var instrumentCodes =
-                        InstrumentCodeModel.getInstrumentCodes(response.data);
-                    return instrumentCodes;
-                  },
+                  // ! Uncomment once InstrumentCode is generated
+                  // onFind: (text) async {
+                  //   var response = await Dio().get(
+                  //     SiftingUrl.previousProductBatchNumberUrl,
+                  //   );
+                  //   if (response.statusCode != 200) {}
+                  //   var instrumentCodes =
+                  //       InstrumentCode.getInstrumentCodes(response.data);
+                  //   return instrumentCodes;
+                  // },
                   onChanged: (value) => setState(
                     () {
                       previousProductBatchNumber = value ?? '';
@@ -376,15 +382,16 @@ class _ShiftingInstrumentClearanceState
                     }
                     return null;
                   },
-                  onFind: (text) async {
-                    var response = await Dio().get(
-                      SiftingUrl.cleaningType,
-                    );
-                    if (response.statusCode != 200) {}
-                    var instrumentCodes =
-                        InstrumentCodeModel.getInstrumentCodes(response.data);
-                    return instrumentCodes;
-                  },
+                  // ! Uncomment once InstrumentCode is generated
+                  // onFind: (text) async {
+                  //   var response = await Dio().get(
+                  //     SiftingUrl.cleaningType,
+                  //   );
+                  //   if (response.statusCode != 200) {}
+                  //   var instrumentCodes =
+                  //       InstrumentCode.getInstrumentCodes(response.data);
+                  //   return instrumentCodes;
+                  // },
                   onChanged: (value) => setState(
                     () {
                       cleaningType = value ?? '';
