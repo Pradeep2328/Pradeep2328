@@ -261,9 +261,11 @@ class _ToogleRemarkWidgetState extends State<ToogleRemarkWidget> {
 class ReadOnlyTextWidget extends StatefulWidget {
   final TextEditingController controller;
   final String label;
+  final Function() onPressedCallback;
   const ReadOnlyTextWidget({
     required this.controller,
     required this.label,
+    required this.onPressedCallback,
     Key? key,
   }) : super(key: key);
 
@@ -277,10 +279,14 @@ class _ReadOnlyTextWidgetState extends State<ReadOnlyTextWidget> {
     return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
-        label: Text(widget.label),
-        hintText: 'Enter ${widget.label}',
-        border: const OutlineInputBorder(),
-      ),
+          label: Text(widget.label),
+          hintText: 'Enter ${widget.label}',
+          border: const OutlineInputBorder(),
+          icon: TextButton.icon(
+            onPressed: widget.onPressedCallback,
+            label: const Text('Refresh'),
+            icon: const Icon(Icons.refresh),
+          )),
       readOnly: true,
     );
   }

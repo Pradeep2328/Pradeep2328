@@ -275,6 +275,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   height: 25.0,
                 ),
                 ReadOnlyTextWidget(
+                  onPressedCallback: getNetWeight,
                   controller: _netWeightIpcController,
                   label: 'Net Weight of Sieved Material',
                 ),
@@ -383,4 +384,8 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
     final list = MaterialSifted.fromJson(plainText);
     return list.materialsSifted.toList();
   }
+
+  //Get the Net Weight from Server
+  // TODO : Implenet the routine to get net weight from server
+  void getNetWeight() async {}
 }
