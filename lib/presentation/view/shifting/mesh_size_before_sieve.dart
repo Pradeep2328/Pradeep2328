@@ -37,16 +37,23 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
   String ipcId = '';
   final _integrityDrynessSieveRemarkController = TextEditingController();
   final _tareWeightIpcController = TextEditingController();
-  final _useBeforeController = TextEditingController();
-  final Ref<String> _unit = Ref<String>('kg'); //Default Unit
+  final Ref<String> _unitTare = Ref<String>('kg'); //Default Unit
   final Ref<String> nextStep = Ref<String>('');
   final Ref<String> lebelHeader = Ref<String>('');
+  final _useBeforeController = TextEditingController();
   final _sifterStartTime = TextEditingController();
+  final _sifterStopTime = TextEditingController();
   final List<String> materialSifted = [];
+  final _abnormalityRetainedPowderController = TextEditingController();
+  final _grossWeightIpcController = TextEditingController();
+  final Ref<String> _unitGross = Ref<String>('kg');
+  final _netWeightIpcController = TextEditingController();
+  final _retainedPowderController = TextEditingController();
+  final Ref<String> _retainedPowderUnit = Ref<String>('kg');
   //Enable Flag
   final Ref<bool> nextStepEnabled = Ref(false);
   final Ref<bool> labelHeaderEnabled = Ref(false);
-  final Ref<bool> materialSiftedEnabled = Ref(true);
+  final Ref<bool> materialSiftedEnabled = Ref(false);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,10 +158,11 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                 const SizedBox(
                   height: 25.0,
                 ),
+                // * Tare Weight of IPC
                 WeightInputWidget(
                   controller: _tareWeightIpcController,
                   label: 'Tare Weight for IPC',
-                  unit: _unit,
+                  unit: _unitTare,
                 ),
                 const SizedBox(
                   height: 25.0,
@@ -208,6 +216,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                 const SizedBox(
                   height: 25.0,
                 ),
+                // * Label Header
                 DropDownSearchSingleItemSelect(
                   url: DropDownUrl.labelHeader,
                   label: 'Label Header',
@@ -215,7 +224,6 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   enabled: labelHeaderEnabled,
                   jsonDecode: labelHeaderDecodeJson,
                 ),
-                // * Label Header
                 const SizedBox(
                   height: 25.0,
                 ),
@@ -228,6 +236,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                 const SizedBox(
                   height: 25.0,
                 ),
+                // *  Sifter Start Time
                 GetTimeWidget(
                   controller: _sifterStartTime,
                   label: 'Sifter Start Time',
@@ -236,6 +245,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                 const SizedBox(
                   height: 25.0,
                 ),
+                // *  Materials Sifted
                 DropDownSearchMultiItemSelect(
                   enabled: materialSiftedEnabled,
                   label: 'Materials Sifted',
@@ -243,7 +253,48 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   jsonDecode: materialSiftedDecodeJson,
                   itemSelected: materialSifted,
                 ),
-
+                const SizedBox(
+                  height: 25.0,
+                ),
+                // *  Sifter Stop Time
+                GetTimeWidget(
+                  controller: _sifterStopTime,
+                  label: 'Sifter Stop Time',
+                  mode: TimeWidgetEvent.Stop,
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                // * Tare Weight of IPC
+                WeightInputWidget(
+                  controller: _grossWeightIpcController,
+                  label: 'Gross Weight of Materials Sifted',
+                  unit: _unitGross,
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                ReadOnlyTextWidget(
+                  controller: _netWeightIpcController,
+                  label: 'Net Weight of Sieved Material',
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                // * Abnormality in retained powder
+                // ! Change to yes and no
+                ToogleRemarkWidget(
+                  textController: _abnormalityRetainedPowderController,
+                  label: 'Abnormality in retained powder',
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+                WeightInputWidget(
+                  controller: _retainedPowderController,
+                  label: 'Quantity of retained powder',
+                  unit: _retainedPowderUnit,
+                ),
                 const SizedBox(
                   height: 25.0,
                 ),
@@ -256,7 +307,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                         // Validate returns true if the form is valid, or false otherwise.
 
                         print(
-                            'Tare Weight : ${_tareWeightIpcController.text} ${_unit.ref}');
+                            'Tare Weight : ${_tareWeightIpcController.text} ${_unitTare.ref}');
                         // TODO Implement uncomment return and success
                         // _changeIpcButtonController.success();
                         // return;
@@ -275,7 +326,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                       onPressed: () async {
                         // Validate returns true if the form is valid, or false otherwise.
                         print(
-                            'Tare Weight : ${_tareWeightIpcController.text} ${_unit.ref}');
+                            'Tare Weight : ${_tareWeightIpcController.text} ${_unitTare.ref}');
                         // TODO Implement uncomment return and success
                         // _changeSieveButtonController.success();
                         // return;

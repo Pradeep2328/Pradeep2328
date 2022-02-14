@@ -1,11 +1,9 @@
-import 'dart:io';
 //import 'package:dartz/dartz.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:granulation/presentation/view/device_info.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:granulation/presentation/view/device_info.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class MainScaffold {
   static AppBar appBar(String title) {
@@ -256,6 +254,34 @@ class _ToogleRemarkWidgetState extends State<ToogleRemarkWidget> {
           return null; //Validation Success
         },
       ),
+    );
+  }
+}
+
+class ReadOnlyTextWidget extends StatefulWidget {
+  final TextEditingController controller;
+  final String label;
+  const ReadOnlyTextWidget({
+    required this.controller,
+    required this.label,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<ReadOnlyTextWidget> createState() => _ReadOnlyTextWidgetState();
+}
+
+class _ReadOnlyTextWidgetState extends State<ReadOnlyTextWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: widget.controller,
+      decoration: InputDecoration(
+        label: Text(widget.label),
+        hintText: 'Enter ${widget.label}',
+        border: const OutlineInputBorder(),
+      ),
+      readOnly: true,
     );
   }
 }
