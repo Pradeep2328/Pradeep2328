@@ -107,7 +107,7 @@ class _SieveIntegrity extends State {
                               _sieveIntegrityController.clear();
                             }
                             setState(() {
-                              _sieveintegrity = index;
+                              _sieveintegrity = index!;
                             });
                           },
                           cornerRadius: 20.0,
@@ -185,7 +185,7 @@ class _SieveIntegrity extends State {
                               _sieveIntegrityControllerBeforeSieving.clear();
                             }
                             setState(() {
-                              _sieveintegritybeforesieving = index;
+                              _sieveintegritybeforesieving = index!;
                             });
                           },
                           cornerRadius: 20.0,
@@ -398,7 +398,7 @@ class _SieveIntegrity extends State {
                               _retainedPowderController.clear();
                             }
                             setState(() {
-                              _retainedPowder = index;
+                              _retainedPowder = index!;
                             });
                           },
                           cornerRadius: 20.0,

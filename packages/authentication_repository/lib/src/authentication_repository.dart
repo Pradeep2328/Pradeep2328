@@ -1,7 +1,5 @@
 library authentication_repository;
 
-//export 'authentication_repository.g.dart';
-
 import 'dart:async';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }

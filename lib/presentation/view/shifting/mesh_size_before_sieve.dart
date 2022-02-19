@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:granulation/common/global.dart';
 import 'package:granulation/common/urls.dart';
 import 'package:granulation/models/drop_down_search/ipc_id_list.dart';
 import 'package:granulation/models/drop_down_search/ipc_next_step.dart';
@@ -51,9 +52,9 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
   final _retainedPowderController = TextEditingController();
   final Ref<String> _retainedPowderUnit = Ref<String>('kg');
   //Enable Flag
-  final Ref<bool> nextStepEnabled = Ref(false);
-  final Ref<bool> labelHeaderEnabled = Ref(false);
-  final Ref<bool> materialSiftedEnabled = Ref(false);
+  bool nextStepEnabled = false;
+  bool labelHeaderEnabled = false;
+  bool materialSiftedEnabled = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +97,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   },
                   onFind: (text) async {
                     var response = await Dio().get(
-                      SiftingUrl.meshSize,
+                      ServerConfiguration.serverUri + DropDownUrl.meshSize,
                     );
                     if (response.statusCode != 200) {}
                     final meshSize = MeshSizeSieve.fromJson(
@@ -143,7 +144,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   },
                   onFind: (text) async {
                     var response = await Dio().get(
-                      DropDownUrl.ipcId,
+                      ServerConfiguration.serverUri + DropDownUrl.meshSize,
                     );
                     if (response.statusCode != 200) {}
                     final ipcIdList = IpcIdList.fromJson(response.data);
@@ -190,7 +191,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   },
                   onFind: (text) async {
                     var response = await Dio().get(
-                      DropDownUrl.ipcStatus,
+                      DropDownUrl.ipcStatusUrl,
                     );
                     if (response.statusCode != 200) {}
                     final ipcStatusList = IpcStatusList.fromJson(response.data);
@@ -207,7 +208,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                 ),
                 // * Next Step
                 DropDownSearchSingleItemSelect(
-                  url: DropDownUrl.nextStep,
+                  url: ServerConfiguration.serverUri + DropDownUrl.nextStepUrl,
                   label: 'Next Step',
                   itemSelected: nextStep,
                   enabled: nextStepEnabled,
@@ -218,7 +219,8 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                 ),
                 // * Label Header
                 DropDownSearchSingleItemSelect(
-                  url: DropDownUrl.labelHeader,
+                  url: ServerConfiguration.serverUri +
+                      DropDownUrl.labelHeaderUrl,
                   label: 'Label Header',
                   itemSelected: lebelHeader,
                   enabled: labelHeaderEnabled,

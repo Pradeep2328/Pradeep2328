@@ -259,7 +259,7 @@ class _AreaClearanceState extends State {
                                 _wasteBinsClearedController.clear();
                               }
                               setState(() {
-                                _wastebinscleared = index;
+                                _wastebinscleared = index!;
                               });
                             },
                             cornerRadius: 20.0,
@@ -509,7 +509,7 @@ class _AreaClearanceState extends State {
                                 _wasteBinsClearedController.clear();
                               }
                               setState(() {
-                                _wastebinscleared = index;
+                                _wastebinscleared = index!;
                               });
                             },
                             cornerRadius: 20.0,

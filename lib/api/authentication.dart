@@ -1,16 +1,23 @@
 import 'package:chopper/chopper.dart';
-import 'package:granulation/models/login_request.dart';
-import 'package:granulation/models/login_response.dart';
+import 'package:granulation/common/urls.dart';
+import 'package:granulation/models/authentication.dart';
 
 part 'authentication.chopper.dart';
 
-@ChopperApi(baseUrl: '/authentication')
-abstract class AuthenticationService extends ChopperService {
-  @Post(path: '/login')
-  Future<Response> login(
+@ChopperApi(baseUrl: CommonUrl.authentication)
+abstract class AuthenticationServices extends ChopperService {
+  @Post(path: CommonUrl.login)
+  Future<Response<LoginRequest>> login(
+    // Future<Response> login(
+    //Future<Response<LoginResponse>> login(
     @Body() Map<String, dynamic> body,
   );
 
-  static AuthenticationService create([ChopperClient? client]) =>
-      _$AuthenticationService(client);
+  @Post(path: '/logout')
+  Future<Response> logout(
+    @Body() Map<String, dynamic> body,
+  );
+
+  static AuthenticationServices create([ChopperClient? client]) =>
+      _$AuthenticationServices(client);
 }

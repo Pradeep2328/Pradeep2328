@@ -42,7 +42,7 @@ class MainScaffold {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DeviceInfomation(),
+                  builder: (context) => const DeviceInfomation(),
                 ),
               );
               Navigator.pop(context);
@@ -212,7 +212,7 @@ class _ToogleRemarkWidgetState extends State<ToogleRemarkWidget> {
                       widget.textController.clear();
                     }
                     setState(() {
-                      _toggleIndex = index;
+                      _toggleIndex = index!;
                     });
                   },
                   cornerRadius: 20.0,

@@ -2,10 +2,8 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:granulation/api/authentication.dart';
-import 'package:granulation/api/main_chopper_client.dart';
 import 'package:granulation/common/global.dart';
-import 'package:granulation/models/login_request.dart';
+import 'package:granulation/models/authentication.dart';
 import 'package:granulation/presentation/view/about_us.dart';
 import 'package:granulation/presentation/view/common_widgets/authentication_widget.dart';
 import 'package:granulation/presentation/view/contact_us.dart';
@@ -188,19 +186,17 @@ class _LogInState extends State<LogIn> {
                 if (_formKey.currentState!.validate()) {
                   final userName = _userNameController.text;
                   final password = _passwordController.text;
-                  LoginRequest loginJson = LoginRequest(
+                  LoginRequest loginRequest = LoginRequest(
                     userId: userName,
                     password: password,
                     deviceSerialNumber: DeviceInfo.serialNumber,
                   );
-                  final loginJsonString = loginJson.toJson();
-                  print('LoginJsonString : $loginJsonString');
-                  final loginService =
-                      AuthenticationService.create(MainChopperClient.client);
-                  final response = await loginService.login(loginJsonString);
-                  print('Response : $response');
+                  // final loginResponse = await ApiService.authenticationService
+                  //     .login(loginRequest.toJson());
+                  //print('Response : ${loginResponse.body}');
                   _loginButtonController.success();
-                  return;
+                  // TODO Commented return for testingUncomment from final code
+                  // return;
                 }
                 _loginButtonController.error();
                 await Future.delayed(const Duration(milliseconds: 1500));

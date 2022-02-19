@@ -1,3 +1,10 @@
+import 'package:dio/dio.dart';
+import 'package:granulation/api/api_list.dart';
+import 'package:granulation/common/global.dart';
+import 'package:granulation/common/urls.dart';
+import 'package:granulation/models/authentication.dart';
+import 'package:granulation/models/drop_down_search/product_code.dart';
+import 'package:granulation/presentation/model/product_code.dart';
 import 'package:logging/logging.dart';
 import 'package:flutter/material.dart';
 
@@ -14,10 +21,14 @@ import 'package:granulation/presentation/view/set_return_ipc.dart';
 import 'package:granulation/presentation/view/shifting/sieve_integrity.dart';
 
 void main() async {
+  LoginRequest login = LoginRequest(
+      userId: 'userId',
+      password: 'password',
+      deviceSerialNumber: 'deviceSerialNumber');
+  final loginResponse =
+      await ApiService.authenticationService.login(login.toJson());
+  print('Response : ${loginResponse.body}');
   _setupLogging();
-  // MqttClientWrapper mqtt = MqttClientWrapper();
-  // await mqtt.connect();
-  // mqtt.sendData(data: 'Hello World!!!');
   runApp(const MainApp());
 }
 
@@ -43,7 +54,7 @@ class MainApp extends StatelessWidget {
       // home: SetReturnIPC(),
       // home: ShiftingProcess(),
       home: LogIn(),
-      //home: AboutUs(),
+      // home: AboutUs(),
       // home: AreaClearnce(),
       // home: SetReturnIPC(),
       // home: SieveIntegrity(),

@@ -1,36 +1,31 @@
-class ServerUrl {
-  static String apiUrl = '';
-  // static late String apiUrl;
-}
-
 class CommonUrl {
-  static final cleanedByUserName = '${ServerUrl.apiUrl}/cleanedByUserName';
-  static final checkedByUserName = '${ServerUrl.apiUrl}/checkedByUserName';
-  static final verifiedByUserName = '${ServerUrl.apiUrl}/verifiedByUserName';
-  static final getDateTime = '${ServerUrl.apiUrl}/get-date-time';
+  static const authentication = '/authentication';
+  static const login = '/login';
+  static const cleanedByUserName = '/cleanedByUserName';
+  static const checkedByUserName = '/checkedByUserName';
+  static const verifiedByUserName = '/verifiedByUserName';
+  static const getDateTime = '/get-date-time';
 }
 
 class DropDownUrl {
-  static final ipcId = '${ServerUrl.apiUrl}/ipc-id';
-  static final ipcStatus = '${ServerUrl.apiUrl}/ipc-status';
-  static final nextStep = '${ServerUrl.apiUrl}/next-step';
-  static final labelHeader = '${ServerUrl.apiUrl}/label-header';
+  static const productCodeUrl = '/GRAN_INTER/BatchSetting/getAllProductCode';
+  static const ipcIdUrl = '/ipc-id';
+  static const ipcStatusUrl = '/ipc-status';
+  static const nextStepUrl = '/next-step';
+  static const labelHeaderUrl = '/label-header';
+  // * Mesh Size of Sieve
+  static const meshSize = '/meshSize';
 }
 
 class SiftingUrl {
   // * Instrument Cleaning
-  static final productCodeUrl = '${ServerUrl.apiUrl}/productCode';
-  static final instrumentCodeUrl = '${ServerUrl.apiUrl}/instrumentCode';
-  static final previousProductCodeUrl =
-      '${ServerUrl.apiUrl}/previousProductCode';
-  static final previousProductBatchNumberUrl =
-      '${ServerUrl.apiUrl}/product-code';
-  static final cleaningType = '${ServerUrl.apiUrl}/cleaningType';
-  static final meshSize =
-      '${ServerUrl.apiUrl}/meshSize'; // ? Also used in Mesh Size of Sieve
-  static final screenSize = '${ServerUrl.apiUrl}/screenSize';
+  static const instrumentCodeUrl = '/instrumentCode';
+  static const previousProductCodeUrl = '/previousProductCode';
+  static const previousProductBatchNumberUrl = '/product-code';
+  static const cleaningType = '/cleaningType';
+
+  static const screenSize = '/screenSize';
 
   // * Mesh Size of Sieve
-
-  static final materialSifted = '${ServerUrl.apiUrl}/material-sifted';
+  static const materialSifted = '/material-sifted';
 }

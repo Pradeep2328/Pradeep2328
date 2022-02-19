@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:granulation/models/sifting/product_code.dart';
+import 'package:granulation/common/urls.dart';
+import 'package:granulation/models/drop_down_search/product_code.dart';
+import 'package:granulation/presentation/view/common_widgets/selction_widget.dart';
+//import 'package:granulation/models/sifting/product_code.dart';
 import 'package:granulation/presentation/view/common_widgets/widgets.dart';
+import 'package:reference_wrapper/reference_wrapper.dart';
 
 class ShiftingProcess extends StatefulWidget {
   const ShiftingProcess({Key? key}) : super(key: key);
@@ -15,7 +21,7 @@ class ShiftingProcess extends StatefulWidget {
 class _ShiftingProcessState extends State<ShiftingProcess> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController processOrderNumberController = TextEditingController();
-  String productCode = '';
+  Ref<String> productCode = Ref<String>('');
   String batchNumber = '';
   String area = '';
   String roomName = '';
@@ -37,52 +43,51 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    //Product Code
-                    SizedBox(
-                      //Used to make DropdownSearch as of same height as TextFormField
-                      height: 55.0,
-                      //child: DropdownSearch<ProductCode>(
-                      child: DropdownSearch<String>(
-                        mode: Mode.MENU,
-                        showSelectedItems: true,
-                        showSearchBox: true,
-                        showAsSuffixIcons: true,
-                        dropdownSearchDecoration: const InputDecoration(
-                          label: Text('Product Code'),
-                          focusColor: Colors.blue,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              style: BorderStyle.solid,
-                            ),
-                          ),
-                        ),
-                        validator: (value) {
-                          //if (value == null || value.name.isEmpty) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please select Product Code';
-                          }
-                          return null;
-                        },
-                        // ! Uncomment once Product Code is generated
-                        // onFind: (text) async {
-                        //   var response = await Dio().get(
-                        //     'https://5d85ccfb1e61af001471bf60.mockapi.io/user',
-                        //   ); //https://5d85ccfb1e61af001471bf60.mockapi.io/user
-                        //   if (response.statusCode != 200) {}
-                        //   var models = ProductCode.fromJsonList(response.data);
-                        //   //return models;
-                        //   final List<String> productNames =
-                        //       models.map((product) => product.name).toList();
-                        //   return productNames;
-                        // },
-                        onChanged: (value) => setState(
-                          () {
-                            productCode = value ?? '';
-                            //productCode = value?.name ?? '';
-                          },
-                        ),
-                      ),
-                    ),
+                    // * Product Code
+                    //DropDownSearchSingleItemSelect(label: 'Product Code', url: DropDownUrl.productCodeUrl, itemSelected: productCode, enabled: true, jsonDecode: jsonDecode)
+                    //child: DropdownSearch<ProductCode>(
+
+                    // child: DropdownSearch<String>(
+                    //   mode: Mode.MENU,
+                    //   showSelectedItems: true,
+                    //   showSearchBox: true,
+                    //   showAsSuffixIcons: true,
+                    //   dropdownSearchDecoration: const InputDecoration(
+                    //     label: Text('Product Code'),
+                    //     focusColor: Colors.blue,
+                    //     border: OutlineInputBorder(
+                    //       borderSide: BorderSide(
+                    //         style: BorderStyle.solid,
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   validator: (value) {
+                    //     //if (value == null || value.name.isEmpty) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Please select Product Code';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ! Uncomment once Product Code is generated
+                    // onFind: (text) async {
+                    //   var response = await Dio().get(
+                    //     'https://5d85ccfb1e61af001471bf60.mockapi.io/user',
+                    //   ); //https://5d85ccfb1e61af001471bf60.mockapi.io/user
+                    //   if (response.statusCode != 200) {}
+                    //   var models = ProductCode.fromJsonList(response.data);
+                    //   //return models;
+                    //   final List<String> productNames =
+                    //       models.map((product) => product.name).toList();
+                    //   return productNames;
+                    // },
+                    //   onChanged: (value) => setState(
+                    //     () {
+                    //       productCode = value ?? '';
+                    //       //productCode = value?.name ?? '';
+                    //     },
+                    //   ),
+                    // ),
+
                     const SizedBox(
                       height: 10.0,
                     ),
@@ -91,7 +96,7 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                       //Used to make DropdownSearch as of same height as TextFormField
                       height: 55.0,
                       child: DropdownSearch<String>(
-                        enabled: productCode.isNotEmpty ? true : false,
+                        enabled: productCode.ref.isNotEmpty ? true : false,
                         mode: Mode.MENU,
                         showSelectedItems: true,
                         showSearchBox: true,
@@ -328,5 +333,11 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
         ),
       ),
     );
+  }
+
+  List<String> productCodeDecodeJson(String plainText) {
+    final list = ProductCodeApiModel.fromJson(jsonDecode(plainText));
+    final listd = list.productCodeList.map((e) => e.productCode);
+    return listd.toList();
   }
 }
