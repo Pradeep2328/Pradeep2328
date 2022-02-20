@@ -4,6 +4,7 @@ import 'package:granulation/common/global.dart';
 import 'package:granulation/common/urls.dart';
 import 'package:granulation/models/authentication.dart';
 import 'package:granulation/models/drop_down_search/product_code.dart';
+import 'package:granulation/models/test_post.dart';
 import 'package:granulation/presentation/model/product_code.dart';
 import 'package:logging/logging.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +22,12 @@ import 'package:granulation/presentation/view/set_return_ipc.dart';
 import 'package:granulation/presentation/view/shifting/sieve_integrity.dart';
 
 void main() async {
-  LoginRequest login = LoginRequest(
-      userId: 'userId',
-      password: 'password',
-      deviceSerialNumber: 'deviceSerialNumber');
-  final loginResponse =
-      await ApiService.authenticationService.login(login.toJson());
-  print('Response : ${loginResponse.body}');
+  final reponse = await ApiService.jsonPlaceholderService.getPost(id: 1);
+  final postResponse = reponse.body as PostModel;
+  print('id : ${postResponse.id}');
+  print('User ID : ${postResponse.userId}');
+  print('Title : ${postResponse.title}');
+  print('Body : ${postResponse.body}');
   _setupLogging();
   runApp(const MainApp());
 }

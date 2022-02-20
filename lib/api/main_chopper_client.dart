@@ -1,13 +1,16 @@
 import 'package:chopper/chopper.dart';
+import 'package:granulation/api/json_placeholder.dart';
 import 'package:granulation/api/resource_error.dart';
 import 'package:granulation/common/global.dart';
 import 'package:granulation/api/authentication.dart';
 import 'package:granulation/api/dropdown_searchable_list.dart';
 import 'package:granulation/models/authentication.dart';
+import 'package:granulation/models/test_post.dart';
 
 class MainChopperClient {
   static final client = ChopperClient(
-    baseUrl: ServerConfiguration.serverUri,
+    baseUrl: 'https://jsonplaceholder.typicode.com',
+    // baseUrl: ServerConfiguration.serverUri,
     interceptors: [
       const HeadersInterceptor({
         'Content-Type': 'application/json; charset=UTF-8',
@@ -18,6 +21,7 @@ class MainChopperClient {
     services: [
       AuthenticationServices.create(),
       DropDownSearchableList.create(),
+      JsonPlaceholderServices.create(),
     ],
     // converter: const JsonConverter(),
     // errorConverter: const JsonConverter(),
@@ -25,7 +29,8 @@ class MainChopperClient {
     // LoginRequest: LoginRequest.fromJson,
     converter: const JsonSerializableConverter(
       factories: {
-        LoginRequest: LoginRequest.fromJsonFactory,
+        // LoginRequest: LoginRequest.fromJsonFactory,
+        PostModel: PostModel.fromJsonFactory
       },
     ),
   );

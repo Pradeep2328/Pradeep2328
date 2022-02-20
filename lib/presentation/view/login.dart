@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:granulation/api/api_list.dart';
 import 'package:granulation/common/global.dart';
 import 'package:granulation/models/authentication.dart';
 import 'package:granulation/presentation/view/about_us.dart';
@@ -191,9 +192,13 @@ class _LogInState extends State<LogIn> {
                     password: password,
                     deviceSerialNumber: DeviceInfo.serialNumber,
                   );
-                  // final loginResponse = await ApiService.authenticationService
-                  //     .login(loginRequest.toJson());
-                  //print('Response : ${loginResponse.body}');
+                  final reponse = await ApiService.authenticationService
+                      .login(loginRequest.toJson());
+                  final loginResponse = reponse.body as LoginRequest;
+                  print('User ID : ${loginResponse.userId}');
+                  print('Password : ${loginResponse.password}');
+                  print(
+                      'Device Serial Number : ${loginResponse.deviceSerialNumber}');
                   _loginButtonController.success();
                   // TODO Commented return for testingUncomment from final code
                   // return;
