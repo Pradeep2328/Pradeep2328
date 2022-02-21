@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:granulation/api/api_list.dart';
 import 'package:granulation/common/global.dart';
+import 'package:granulation/common/themes.dart';
 import 'package:granulation/common/urls.dart';
 import 'package:granulation/models/authentication.dart';
 import 'package:granulation/models/drop_down_search/product_code.dart';
@@ -22,15 +23,15 @@ import 'package:granulation/presentation/view/set_return_ipc.dart';
 import 'package:granulation/presentation/view/shifting/sieve_integrity.dart';
 
 void main() async {
-  final reponse = await ApiService.jsonPlaceholderService.getPost(id: 1);
-  print('Response Code : ${reponse.statusCode}');
-  if (reponse.isSuccessful) {
-    final postResponse = reponse.body as PostModel;
-    print('id : ${postResponse.id}');
-    print('User ID : ${postResponse.userId}');
-    print('Title : ${postResponse.title}');
-    print('Body : ${postResponse.body}');
-  }
+  // final reponse = await ApiService.jsonPlaceholderService.getPost(id: 1);
+  // print('Response Code : ${reponse.statusCode}');
+  // if (reponse.isSuccessful) {
+  //   final postResponse = reponse.body as PostModel;
+  //   print('id : ${postResponse.id}');
+  //   print('User ID : ${postResponse.userId}');
+  //   print('Title : ${postResponse.title}');
+  //   print('Body : ${postResponse.body}');
+  // }
   _setupLogging();
   runApp(const MainApp());
 }
@@ -47,7 +48,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: MyThemes.lightTheme,
+      darkTheme: MyThemes.darkTheme,
+      themeMode: ThemeMode.dark,
       // home: MeshSizeBeforeSieve(),
       // home: ShiftingInstrumentClearance(),
       // home: MultiBlocProvider(

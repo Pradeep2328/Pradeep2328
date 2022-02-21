@@ -40,7 +40,9 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MainScaffold.drawer(context),
-      appBar: MainScaffold.appBar('Set/Return - IPC'),
+      appBar: const AppBarBase(
+        title: 'Set/Return - IPC',
+      ),
       body: Row(
         children: <Widget>[
           Expanded(

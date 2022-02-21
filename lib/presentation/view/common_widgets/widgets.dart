@@ -1,18 +1,14 @@
 //import 'package:dartz/dartz.dart';
+import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:granulation/presentation/view/device_information.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
-class MainScaffold {
-  static AppBar appBar(String title) {
-    return AppBar(
-      centerTitle: true,
-      title: Text(title),
-    );
-  }
+enum ThemeMode { light, dark, automatic }
 
+class MainScaffold {
   static Drawer drawer(BuildContext context) {
     return Drawer(
       child: ListView(
@@ -37,7 +33,7 @@ class MainScaffold {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            textColor: Colors.black,
+            // textColor: Colors.black,
             onTap: () async {
               await Navigator.push(
                 context,
@@ -57,7 +53,7 @@ class MainScaffold {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            textColor: Colors.black,
+            // textColor: Colors.black,
             onTap: () {
               //TODO Implement Contact Us
               Navigator.pop(context);
@@ -72,7 +68,7 @@ class MainScaffold {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            textColor: Colors.black,
+            // textColor: Colors.black,
             onTap: () {
               //TODO Implement About Us
               Navigator.pop(context);
@@ -87,7 +83,7 @@ class MainScaffold {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            textColor: Colors.black,
+            // textColor: Colors.black,
             onTap: () async {
               await showDialog(
                 context: context,
@@ -125,7 +121,7 @@ class MainScaffold {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            textColor: Colors.black,
+            //// textColor: Colors.black,
             onTap: () async {
               await showDialog<void>(
                 context: context,
@@ -156,6 +152,59 @@ class MainScaffold {
           ),
         ],
       ),
+    );
+  }
+}
+
+class AppBarBase extends StatefulWidget implements PreferredSizeWidget {
+  final String title;
+
+  const AppBarBase({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  State<AppBarBase> createState() => _AppBarBaseState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _AppBarBaseState extends State<AppBarBase> {
+  ThemeMode themeMode = ThemeMode.light;
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      centerTitle: true,
+      title: Text(widget.title),
+      actions: <Widget>[
+        AnimatedToggleSwitch.rollingByHeight(
+          height: 40.0,
+          current: themeMode.index,
+          values: const [0, 1, 2],
+          onChanged: (int value) {
+            setState(() {
+              themeMode = ThemeMode.values[value];
+            });
+          },
+          fittingMode: FittingMode.preventHorizontalOverlapping,
+          iconBuilder: (i, size, active) {
+            Icon icon;
+            if (i == 0) {
+              icon = const Icon(Icons.wb_sunny);
+            } else if (i == 1) {
+              icon = const Icon(Icons.nightlight);
+            } else {
+              icon = const Icon(Icons.wb_auto);
+            }
+            return Padding(
+              padding: const EdgeInsets.only(top: 12.5),
+              child: icon,
+            );
+          },
+        ),
+      ],
     );
   }
 }

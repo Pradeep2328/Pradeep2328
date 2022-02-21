@@ -29,7 +29,7 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainScaffold.appBar('Shifting'),
+      appBar: const AppBarBase(title: 'Shifting'),
       drawer: MainScaffold.drawer(context),
       body: SingleChildScrollView(
         child: Form(
