@@ -23,11 +23,14 @@ import 'package:granulation/presentation/view/shifting/sieve_integrity.dart';
 
 void main() async {
   final reponse = await ApiService.jsonPlaceholderService.getPost(id: 1);
-  final postResponse = reponse.body as PostModel;
-  print('id : ${postResponse.id}');
-  print('User ID : ${postResponse.userId}');
-  print('Title : ${postResponse.title}');
-  print('Body : ${postResponse.body}');
+  print('Response Code : ${reponse.statusCode}');
+  if (reponse.isSuccessful) {
+    final postResponse = reponse.body as PostModel;
+    print('id : ${postResponse.id}');
+    print('User ID : ${postResponse.userId}');
+    print('Title : ${postResponse.title}');
+    print('Body : ${postResponse.body}');
+  }
   _setupLogging();
   runApp(const MainApp());
 }

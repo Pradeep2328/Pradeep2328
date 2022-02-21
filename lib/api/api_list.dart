@@ -5,12 +5,9 @@ import 'package:granulation/api/dropdown_searchable_list.dart';
 
 class ApiService {
   // * For Login, Logout, Switch User
-  static final authenticationService =
-      AuthenticationServices.create(MainChopperClient.client);
+  static final authenticationService = AuthenticationServices.create(chopperClient);
   // * For all DropDownSerachFields
-  static final dropdownSearchService =
-      DropDownSearchableList.create(MainChopperClient.client);
+  static final dropdownSearchService = DropDownSearchableList.create(chopperClient);
 
-  static final jsonPlaceholderService =
-      JsonPlaceholderServices.create(MainChopperClient.client);
+  static final jsonPlaceholderService = JsonPlaceholderServices.create(chopperClient);
 }

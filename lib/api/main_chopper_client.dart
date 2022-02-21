@@ -7,34 +7,29 @@ import 'package:granulation/api/dropdown_searchable_list.dart';
 import 'package:granulation/models/authentication.dart';
 import 'package:granulation/models/test_post.dart';
 
-class MainChopperClient {
-  static final client = ChopperClient(
-    baseUrl: 'https://jsonplaceholder.typicode.com',
-    // baseUrl: ServerConfiguration.serverUri,
-    interceptors: [
-      const HeadersInterceptor({
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Cache-Control': 'no-cache'
-      }),
-      HttpLoggingInterceptor(),
-    ],
-    services: [
-      AuthenticationServices.create(),
-      DropDownSearchableList.create(),
-      JsonPlaceholderServices.create(),
-    ],
-    // converter: const JsonConverter(),
-    // errorConverter: const JsonConverter(),
-
-    // LoginRequest: LoginRequest.fromJson,
-    converter: const JsonSerializableConverter(
-      factories: {
-        // LoginRequest: LoginRequest.fromJsonFactory,
-        PostModel: PostModel.fromJsonFactory
-      },
-    ),
-  );
-}
+final chopperClient = ChopperClient(
+  baseUrl: 'https://jsonplaceholder.typicode.com',
+  // baseUrl: ServerConfiguration.serverUri,
+  interceptors: [
+    const HeadersInterceptor({
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Cache-Control': 'no-cache'
+    }),
+    HttpLoggingInterceptor(),
+  ],
+  services: [
+    AuthenticationServices.create(),
+    DropDownSearchableList.create(),
+    JsonPlaceholderServices.create(),
+  ],
+  // LoginRequest: LoginRequest.fromJson,
+  converter: const JsonSerializableConverter(
+    factories: {
+      // LoginRequest: LoginRequest.fromJsonFactory,
+      PostModel: PostModel.fromJsonFactory
+    },
+  ),
+);
 
 typedef JsonFactory<T> = T Function(Map<String, dynamic> json);
 
@@ -49,8 +44,6 @@ class JsonSerializableConverter extends JsonConverter {
     final jsonFactory = factories[T];
     if (jsonFactory == null || jsonFactory is! JsonFactory<T>) {
       /// throw serializer not found error;
-      print(jsonFactory.toString());
-      print(JsonFactory<T>);
       return null;
     }
 
@@ -77,9 +70,6 @@ class JsonSerializableConverter extends JsonConverter {
   }
 
   @override
-  // all objects should implements toJson method
-  Request convertRequest(Request request) => super.convertRequest(request);
-
   Response convertError<ResultType, Item>(Response response) {
     // use [JsonConverter] to decode json
     final jsonRes = super.convertError(response);
