@@ -1,6 +1,7 @@
 import 'package:chopper/chopper.dart';
 import 'package:granulation/common/urls.dart';
 import 'package:granulation/models/authentication.dart';
+import 'package:granulation/models/sifting/product_code.dart';
 
 part 'authentication.chopper.dart';
 
@@ -12,6 +13,9 @@ abstract class AuthenticationServices extends ChopperService {
     //Future<Response<LoginResponse>> login(
     @Body() Map<String, dynamic> body,
   );
+
+  @Get(path: CommonUrl.getProductCode)
+  Future<Response<ProductCode>> getProductCode();
 
   @Post(path: '/logout')
   Future<Response> logout(

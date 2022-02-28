@@ -5,6 +5,7 @@ class CommonUrl {
   static const checkedByUserName = '/checkedByUserName';
   static const verifiedByUserName = '/verifiedByUserName';
   static const getDateTime = '/get-date-time';
+  static const getProductCode = "/productCode";
 }
 
 class DropDownUrl {
@@ -20,6 +21,7 @@ class DropDownUrl {
 class SiftingUrl {
   // * Instrument Cleaning
   static const instrumentCodeUrl = '/instrumentCode';
+  static const instrumentTypeUrl = '/instrumentType';
   static const previousProductCodeUrl = '/previousProductCode';
   static const previousProductBatchNumberUrl = '/product-code';
   static const cleaningType = '/cleaningType';
@@ -28,4 +30,6 @@ class SiftingUrl {
 
   // * Mesh Size of Sieve
   static const materialSifted = '/material-sifted';
+  static const meshSieze = '/mesh-sieze';
+  static const ipcid = '/ipc-id';
 }

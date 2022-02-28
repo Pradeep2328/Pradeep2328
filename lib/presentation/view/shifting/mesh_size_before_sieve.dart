@@ -58,8 +58,11 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarBase(title: 'Sifting'),
       drawer: MainScaffold.drawer(context),
+      appBar: AppBar(
+        title: const Text('Shifting - Area Clearance'),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(25.0),

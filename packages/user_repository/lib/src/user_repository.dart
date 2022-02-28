@@ -1,4 +1,4 @@
-import 'package:user_repository/src/models/user.dart';
+import '../user_repository.dart';
 
 class UserRepository {
   User _user = User.empty;
