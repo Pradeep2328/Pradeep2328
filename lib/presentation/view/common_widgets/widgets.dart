@@ -2,9 +2,12 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:granulation/presentation/view/device_information.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+
+import '../../../business_logic_controller/cubit/theme_cubit.dart';
 
 enum ThemeMode { light, dark, automatic }
 
@@ -179,30 +182,41 @@ class _AppBarBaseState extends State<AppBarBase> {
       centerTitle: true,
       title: Text(widget.title),
       actions: <Widget>[
-        AnimatedToggleSwitch.rollingByHeight(
-          height: 40.0,
-          current: themeMode.index,
-          values: const [0, 1, 2],
-          onChanged: (int value) {
-            setState(() {
-              themeMode = ThemeMode.values[value];
-            });
-          },
-          fittingMode: FittingMode.preventHorizontalOverlapping,
-          iconBuilder: (i, size, active) {
-            Icon icon;
-            if (i == 0) {
-              icon = const Icon(Icons.wb_sunny);
-            } else if (i == 1) {
-              icon = const Icon(Icons.nightlight);
-            } else {
-              icon = const Icon(Icons.wb_auto);
-            }
-            return Padding(
-              padding: const EdgeInsets.only(top: 12.5),
-              child: icon,
-            );
-          },
+        Column(
+          children: <Widget>[
+            const SizedBox(
+              height: 7.5,
+            ),
+            AnimatedToggleSwitch.rollingByHeight(
+              height: 40.0,
+              current: themeMode.index,
+              values: const [0, 1, 2],
+              onChanged: (int value) {
+                setState(() {
+                  themeMode = ThemeMode.values[value];
+                });
+                if (value == 0) {
+                  context.read<ThemeCubit>().setLightThemeMode();
+                } else if (value == 1) {
+                  context.read<ThemeCubit>().setDarkThemeMode();
+                } else {
+                  context.read<ThemeCubit>().setSystemThemeMode();
+                }
+              },
+              fittingMode: FittingMode.preventHorizontalOverlapping,
+              iconBuilder: (i, size, active) {
+                Icon icon;
+                if (i == 0) {
+                  icon = const Icon(Icons.wb_sunny);
+                } else if (i == 1) {
+                  icon = const Icon(Icons.nightlight);
+                } else {
+                  icon = const Icon(Icons.wb_auto);
+                }
+                return icon;
+              },
+            ),
+          ],
         ),
       ],
     );
@@ -254,7 +268,7 @@ class _ToogleRemarkWidgetState extends State<ToogleRemarkWidget> {
                     [Colors.green],
                     [Colors.red]
                   ],
-                  minWidth: 125.0,
+                  minWidth: 110.0,
                   // animate: true,
                   onToggle: (index) {
                     if (index == 0) {

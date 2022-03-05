@@ -100,7 +100,8 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   },
                   onFind: (text) async {
                     var response = await Dio().get(
-                      ServerConfiguration.serverUri + DropDownUrl.meshSize,
+                      ServerConfiguration.serverUri +
+                          DropDownCommonUrl.meshSize,
                     );
                     if (response.statusCode != 200) {}
                     final meshSize = MeshSizeSieve.fromJson(
@@ -147,7 +148,8 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   },
                   onFind: (text) async {
                     var response = await Dio().get(
-                      ServerConfiguration.serverUri + DropDownUrl.meshSize,
+                      ServerConfiguration.serverUri +
+                          DropDownCommonUrl.meshSize,
                     );
                     if (response.statusCode != 200) {}
                     final ipcIdList = IpcIdList.fromJson(response.data);
@@ -194,7 +196,7 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   },
                   onFind: (text) async {
                     var response = await Dio().get(
-                      DropDownUrl.ipcStatusUrl,
+                      DropDownCommonUrl.ipcStatusUrl,
                     );
                     if (response.statusCode != 200) {}
                     final ipcStatusList = IpcStatusList.fromJson(response.data);
@@ -210,25 +212,25 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   height: 25.0,
                 ),
                 // * Next Step
-                DropDownSearchSingleItemSelect(
-                  url: ServerConfiguration.serverUri + DropDownUrl.nextStepUrl,
-                  label: 'Next Step',
-                  itemSelected: nextStep,
-                  enabled: nextStepEnabled,
-                  jsonDecode: nextStepDecodeJson,
-                ),
+                // DropDownSearchSingleItemSelect(
+                //   url: ServerConfiguration.serverUri + DropDownUrl.nextStepUrl,
+                //   label: 'Next Step',
+                //   itemSelected: nextStep,
+                //   enabled: nextStepEnabled,
+                //   jsonDecode: nextStepDecodeJson,
+                // ),
                 const SizedBox(
                   height: 25.0,
                 ),
                 // * Label Header
-                DropDownSearchSingleItemSelect(
-                  url: ServerConfiguration.serverUri +
-                      DropDownUrl.labelHeaderUrl,
-                  label: 'Label Header',
-                  itemSelected: lebelHeader,
-                  enabled: labelHeaderEnabled,
-                  jsonDecode: labelHeaderDecodeJson,
-                ),
+                // DropDownSearchSingleItemSelect(
+                //   url: ServerConfiguration.serverUri +
+                //       DropDownUrl.labelHeaderUrl,
+                //   label: 'Label Header',
+                //   itemSelected: lebelHeader,
+                //   enabled: labelHeaderEnabled,
+                //   jsonDecode: labelHeaderDecodeJson,
+                // ),
                 const SizedBox(
                   height: 25.0,
                 ),
@@ -251,13 +253,13 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                   height: 25.0,
                 ),
                 // *  Materials Sifted
-                DropDownSearchMultiItemSelect(
-                  enabled: materialSiftedEnabled,
-                  label: 'Materials Sifted',
-                  url: SiftingUrl.materialSifted,
-                  jsonDecode: materialSiftedDecodeJson,
-                  itemSelected: materialSifted,
-                ),
+                // DropDownSearchMultiItemSelect(
+                //   enabled: materialSiftedEnabled,
+                //   label: 'Materials Sifted',
+                //   url: SiftingUrl.materialSifted,
+                //   jsonDecode: materialSiftedDecodeJson,
+                //   itemSelected: materialSifted,
+                // ),
                 const SizedBox(
                   height: 25.0,
                 ),
@@ -393,4 +395,6 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
   //Get the Net Weight from Server
   // TODO : Implenet the routine to get net weight from server
   void getNetWeight() async {}
+
+  void reRenderUi() => setState(() {});
 }

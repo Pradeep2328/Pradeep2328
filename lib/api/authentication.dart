@@ -14,9 +14,6 @@ abstract class AuthenticationServices extends ChopperService {
     @Body() Map<String, dynamic> body,
   );
 
-  @Get(path: CommonUrl.getProductCode)
-  Future<Response<ProductCode>> getProductCode();
-
   @Post(path: '/logout')
   Future<Response> logout(
     @Body() Map<String, dynamic> body,

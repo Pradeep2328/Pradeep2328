@@ -46,8 +46,8 @@ class JsonSerializableConverter extends JsonConverter {
     // use [JsonConverter] to decode json
     final jsonRes = super.convertError(response);
 
-    return jsonRes.copyWith<ResourceError>(
-      body: ResourceError.fromJsonFactory(jsonRes.body),
+    return jsonRes.copyWith<JsonErrorResponse>(
+      body: JsonErrorResponse.fromJsonFactory(jsonRes.body),
     );
   }
 }

@@ -25,13 +25,6 @@ class _$AuthenticationServices extends AuthenticationServices {
   }
 
   @override
-  Future<Response<ProductCode>> getProductCode() {
-    final $url = '/authentication/productCode';
-    final $request = Request('GET', $url, client.baseUrl);
-    return client.send<ProductCode, ProductCode>($request);
-  }
-
-  @override
   Future<Response<dynamic>> logout(Map<String, dynamic> body) {
     final $url = '/authentication/logout';
     final $body = body;

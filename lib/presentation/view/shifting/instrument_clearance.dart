@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:granulation/api/decoders/dropdown_search_decoders.dart';
 import 'package:granulation/common/urls.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:granulation/models/sifting/instrument_code.dart';
@@ -10,6 +11,7 @@ import 'package:granulation/presentation/view/common_widgets/widgets.dart';
 import 'package:reference_wrapper/reference_wrapper.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import '../../../common/global.dart';
 import '../../../models/drop_down_search/ipc_next_step.dart';
 import '../common_widgets/selction_widget.dart';
 
@@ -76,8 +78,8 @@ class _ShiftingInstrumentClearanceState
   final RoundedLoadingButtonController _nextButtonController =
       RoundedLoadingButtonController();
 
-  final Ref<String> instrumentType1 = Ref<String>('');
-  final Ref<String> instrumentCode1 = Ref<String>('');
+  final Ref<String> _instrumentTypeRef = Ref<String>('');
+  final Ref<String> _instrumentCode = Ref<String>('');
   final Ref<String> productCode1 = Ref<String>('');
   final Ref<String> productBatchNumber1 = Ref<String>('');
   final Ref<String> cleaningType1 = Ref<String>('');
@@ -106,13 +108,13 @@ class _ShiftingInstrumentClearanceState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                DropDownSearchSingleItemSelect(
-                  url: SiftingUrl.instrumentTypeUrl,
-                  label: 'Instrument Type',
-                  itemSelected: instrumentType1,
-                  enabled: instrumentTypeEnabled,
-                  jsonDecode: nextStepDecodeJson,
-                ),
+                // DropDownSearchSingleItemSelect(
+                //   url: SiftingUrl.instrumentTypeUrl,
+                //   label: 'Instrument Type',
+                //   itemSelected: instrumentType1,
+                //   enabled: instrumentTypeEnabled,
+                //   jsonDecode: nextStepDecodeJson,
+                // ),
                 // DropdownButtonFormField<String>(
                 //   isExpanded: true,
                 //   decoration: const InputDecoration(
@@ -141,17 +143,38 @@ class _ShiftingInstrumentClearanceState
                 //     });
                 //   },
                 // ),
+
+                DropDownSearchSingleItemSelect(
+                  url: ServerConfiguration.serverUri +
+                      SiftingUrl.instrumentTypeUrl,
+                  label: 'Instrument Type',
+                  itemSelected: _instrumentTypeRef,
+                  enabled: true,
+                  retriveItemList:
+                      CommonDropDownSearchJsonDecoder.getInstrumentType,
+                  callback: reRenderUi,
+                ),
                 const SizedBox(
                   height: 25.0,
                 ),
-                // * Instrument Code
                 DropDownSearchSingleItemSelect(
-                  url: SiftingUrl.instrumentCodeUrl,
+                  url: ServerConfiguration.serverUri +
+                      SiftingUrl.instrumentCodeUrl,
                   label: 'Instrument Code',
-                  itemSelected: instrumentCode1,
-                  enabled: instrumentCodeEnabled,
-                  jsonDecode: nextStepDecodeJson,
+                  itemSelected: _instrumentCode,
+                  enabled: true,
+                  retriveItemList:
+                      CommonDropDownSearchJsonDecoder.getInstrumentCode,
+                  callback: reRenderUi,
                 ),
+                // * Instrument Code
+                // DropDownSearchSingleItemSelect(
+                //   url: SiftingUrl.instrumentCodeUrl,
+                //   label: 'Instrument Code',
+                //   itemSelected: instrumentCode1,
+                //   enabled: instrumentCodeEnabled,
+                //   jsonDecode: nextStepDecodeJson,
+                // ),
                 // DropdownSearch<String>(
                 //   mode: Mode.MENU,
                 //   showSelectedItems: true,
@@ -287,13 +310,13 @@ class _ShiftingInstrumentClearanceState
                 ),
                 // * Previous Product Code
 
-                DropDownSearchSingleItemSelect(
-                  url: DropDownUrl.productCodeUrl,
-                  label: 'Previous Product Code',
-                  itemSelected: productCode1,
-                  enabled: productCodeEnabled,
-                  jsonDecode: nextStepDecodeJson,
-                ),
+                // DropDownSearchSingleItemSelect(
+                //   url: DropDownUrl.productCodeUrl,
+                //   label: 'Previous Product Code',
+                //   itemSelected: productCode1,
+                //   enabled: productCodeEnabled,
+                //   jsonDecode: nextStepDecodeJson,
+                // ),
                 // DropdownSearch<String>(
                 //   mode: Mode.MENU,
                 //   showSelectedItems: true,
@@ -345,13 +368,13 @@ class _ShiftingInstrumentClearanceState
                   height: 25.0,
                 ),
 
-                DropDownSearchSingleItemSelect(
-                  url: SiftingUrl.previousProductBatchNumberUrl,
-                  label: 'Previous Product Batch Number',
-                  itemSelected: productBatchNumber1,
-                  enabled: productBatchEnabled,
-                  jsonDecode: nextStepDecodeJson,
-                ),
+                // DropDownSearchSingleItemSelect(
+                //   url: SiftingUrl.previousProductBatchNumberUrl,
+                //   label: 'Previous Product Batch Number',
+                //   itemSelected: productBatchNumber1,
+                //   enabled: productBatchEnabled,
+                //   jsonDecode: nextStepDecodeJson,
+                // ),
                 // DropdownSearch<String>(
                 //   mode: Mode.MENU,
                 //   showSelectedItems: true,
@@ -409,13 +432,13 @@ class _ShiftingInstrumentClearanceState
                 ),
                 // * Cleaning Type
 
-                DropDownSearchSingleItemSelect(
-                  url: SiftingUrl.cleaningType,
-                  label: 'Cleaning Type',
-                  itemSelected: cleaningType1,
-                  enabled: cleaningTypeEnabled,
-                  jsonDecode: nextStepDecodeJson,
-                ),
+                // DropDownSearchSingleItemSelect(
+                //   url: SiftingUrl.cleaningType,
+                //   label: 'Cleaning Type',
+                //   itemSelected: cleaningType1,
+                //   enabled: cleaningTypeEnabled,
+                //   jsonDecode: nextStepDecodeJson,
+                // ),
                 // DropdownSearch<String>(
                 //   mode: Mode.MENU,
                 //   showSelectedItems: true,
@@ -556,6 +579,8 @@ class _ShiftingInstrumentClearanceState
       ),
     );
   }
+
+  void reRenderUi() => setState(() {});
 }
 
 List<String> nextStepDecodeJson(String plainText) {

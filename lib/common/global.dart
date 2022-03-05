@@ -1,3 +1,4 @@
+import 'package:reference_wrapper/reference_wrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ServerConfiguration {
@@ -7,7 +8,7 @@ class ServerConfiguration {
   static const _mqttBrokerPortNumberKey = 'MqttBrokerPortNumber';
 
   static String _serverIpAddress = '192.168.1.167';
-  static int _serverPortNumber = 4000;
+  static int _serverPortNumber = 3000;
 
   static final serverUri =
       'http://${ServerConfiguration._serverIpAddress}:${ServerConfiguration._serverPortNumber}';
