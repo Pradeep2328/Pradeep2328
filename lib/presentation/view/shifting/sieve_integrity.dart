@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:granulation/presentation/view/common_widgets/date_time_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/test_operation_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/widgets.dart';
+import 'package:granulation/presentation/view/set_return_ipc.dart';
+import 'package:granulation/presentation/view/shifting/instrument_clearance.dart';
 import 'package:reference_wrapper/reference_wrapper.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class SieveIntegrity extends StatefulWidget {
@@ -31,6 +34,13 @@ class _SieveIntegrity extends State {
   final TextEditingController _dateTextFieldController =
       TextEditingController();
 
+  final RoundedLoadingButtonController _nextButtonController =
+      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _changeIpcButtonController =
+      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _changeSieveButtonController =
+      RoundedLoadingButtonController();
+  final List<String> materialSifted = [];
   final TextEditingController _grossWeightController = TextEditingController();
 
   final TextEditingController _netWeightController = TextEditingController();
@@ -66,7 +76,7 @@ class _SieveIntegrity extends State {
     return Scaffold(
       drawer: MainScaffold.drawer(context),
       appBar: AppBar(
-        title: const Text(''),
+        title: const Text('Integrity Of Sieve'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -100,7 +110,7 @@ class _SieveIntegrity extends State {
                             [Colors.green],
                             [Colors.red]
                           ],
-                          minWidth: 85.0,
+                          minWidth: 70.0,
                           animate: true,
                           onToggle: (index) {
                             if (index == 0) {
@@ -178,7 +188,7 @@ class _SieveIntegrity extends State {
                             [Colors.green],
                             [Colors.red]
                           ],
-                          minWidth: 85.0,
+                          minWidth: 70.0,
                           animate: true,
                           onToggle: (index) {
                             if (index == 0) {
@@ -391,7 +401,7 @@ class _SieveIntegrity extends State {
                             [Colors.green],
                             [Colors.red]
                           ],
-                          minWidth: 85.0,
+                          minWidth: 70.0,
                           animate: true,
                           onToggle: (index) {
                             if (index == 0) {
@@ -425,7 +435,36 @@ class _SieveIntegrity extends State {
                         },
                       ),
                     ),
+
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
                   ],
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                RoundedLoadingButton(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SetReturnIPC()),
+                    );
+                    Navigator.pop(context);
+                    print('Items Selected $materialSifted');
+                    // Validate returns true if the form is valid, or false otherwise.
+                    if (_formKey.currentState!.validate()) {
+                      // TODO Implement uncomment return and success
+                      // _nextButtonController.success();
+                      // return;
+                    }
+                    _nextButtonController.error();
+                    await Future.delayed(const Duration(milliseconds: 1500));
+                    _nextButtonController.reset();
+                  },
+                  controller: _nextButtonController,
+                  child: const Text('Next'),
                 ),
               ],
             ),

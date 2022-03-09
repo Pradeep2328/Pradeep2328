@@ -8,6 +8,8 @@ import 'package:granulation/models/authentication.dart';
 import 'package:granulation/presentation/view/about_us.dart';
 import 'package:granulation/presentation/view/common_widgets/authentication_widget.dart';
 import 'package:granulation/presentation/view/contact_us.dart';
+import 'package:granulation/presentation/view/shifting/area_clearance.dart';
+import 'package:granulation/presentation/view/shifting/process_start%20copy.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:granulation/presentation/view/device_information.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -183,6 +185,12 @@ class _LogInState extends State<LogIn> {
             ),
             RoundedLoadingButton(
               onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ShiftingProcess()),
+                );
+                Navigator.pop(context);
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
                   final userName = _userNameController.text;

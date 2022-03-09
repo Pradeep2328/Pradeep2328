@@ -60,7 +60,7 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                   centerTitle: true,
                   //backgroundColor: Colors.green[100],
                 ),
-                backgroundColor: Colors.amber[100],
+                //backgroundColor: Colors.amber[100],
                 body: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: ListView.builder(
@@ -69,8 +69,8 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                     itemBuilder: (BuildContext context, int index) {
                       return Card(
                         color: _avaiableIpc[index].isSelected
-                            ? Colors.blue[50]
-                            : Colors.white,
+                            ? Colors.amber[200]
+                            : Theme.of(context).backgroundColor,
                         elevation: 5.0,
                         child: ListTile(
                           leading: _avaiableIpc[index].isSelected
@@ -148,7 +148,7 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                   ),
                   centerTitle: true,
                 ),
-                backgroundColor: Colors.orange[100],
+                // backgroundColor: Colors.orange[100],
                 body: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: ListView.builder(
@@ -157,8 +157,8 @@ class _SetReturnIPCState extends State<SetReturnIPC> {
                     itemBuilder: (BuildContext context, int index) {
                       return Card(
                         color: _selectedIpc[index].isSelected
-                            ? Colors.blue[50]
-                            : Colors.white,
+                            ? Colors.amber[200]
+                            : Theme.of(context).backgroundColor,
                         elevation: 5.0,
                         child: ListTile(
                           leading: _selectedIpc[index].isSelected

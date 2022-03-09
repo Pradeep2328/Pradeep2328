@@ -8,6 +8,7 @@ import 'package:granulation/models/sifting/instrument_code.dart';
 import 'package:granulation/presentation/view/common_widgets/authentication_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/date_time_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/widgets.dart';
+import 'package:granulation/presentation/view/shifting/sieve_integrity.dart';
 import 'package:reference_wrapper/reference_wrapper.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
@@ -95,7 +96,7 @@ class _ShiftingInstrumentClearanceState
     return Scaffold(
       drawer: MainScaffold.drawer(context),
       appBar: AppBar(
-        title: const Text('Shifting - Instrument Clearance'),
+        title: const Text('Shifting - Equipment Clearance'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -551,6 +552,12 @@ class _ShiftingInstrumentClearanceState
                 ),
                 RoundedLoadingButton(
                   onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SieveIntegrity()),
+                    );
+                    Navigator.pop(context);
                     // Validate returns true if the form is valid, or false otherwise.
                     if (_formKey.currentState!.validate()) {
                       final cleanedByUserName = _cleanedByUserController.text;

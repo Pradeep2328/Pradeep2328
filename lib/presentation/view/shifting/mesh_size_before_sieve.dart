@@ -13,6 +13,7 @@ import 'package:granulation/presentation/view/common_widgets/date_time_widget.da
 import 'package:granulation/presentation/view/common_widgets/selction_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/test_operation_widget.dart';
 import 'package:granulation/presentation/view/common_widgets/widgets.dart';
+import 'package:granulation/presentation/view/shifting/instrument_clearance.dart';
 import 'package:reference_wrapper/reference_wrapper.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
@@ -352,6 +353,13 @@ class _MeshSizeBeforeSieveState extends State<MeshSizeBeforeSieve> {
                     ),
                     RoundedLoadingButton(
                       onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ShiftingInstrumentClearance()),
+                        );
+                        Navigator.pop(context);
                         print('Items Selected $materialSifted');
                         // Validate returns true if the form is valid, or false otherwise.
                         if (_formKey.currentState!.validate()) {

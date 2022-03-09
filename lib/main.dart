@@ -1,5 +1,12 @@
 import 'package:granulation/business_logic_controller/cubit/theme_cubit.dart';
+import 'package:granulation/presentation/view/about_us.dart';
+import 'package:granulation/presentation/view/login.dart';
+import 'package:granulation/presentation/view/set_return_ipc.dart';
+import 'package:granulation/presentation/view/shifting/area_clearance.dart';
+import 'package:granulation/presentation/view/shifting/instrument_clearance.dart';
+import 'package:granulation/presentation/view/shifting/mesh_size_before_sieve.dart';
 import 'package:granulation/presentation/view/shifting/process_start.dart';
+import 'package:granulation/presentation/view/shifting/sieve_integrity.dart';
 import 'package:logging/logging.dart';
 import 'package:flutter/material.dart';
 

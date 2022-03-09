@@ -69,6 +69,7 @@ dependencies:
   syncfusion_flutter_gauges: ^19.4.42
   syncfusion_flutter_pdfviewer: ^19.4.42-beta
   syncfusion_flutter_signaturepad: ^19.4.42
+  font_awesome_flutter: ^9.2.0
   
  
 

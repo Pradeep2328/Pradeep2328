@@ -6,7 +6,10 @@ import 'package:granulation/common/urls.dart';
 import 'package:granulation/presentation/view/common_widgets/selction_widget.dart';
 //import 'package:granulation/models/sifting/product_code.dart';
 import 'package:granulation/presentation/view/common_widgets/widgets.dart';
+import 'package:granulation/presentation/view/shifting/area_clearance.dart';
+import 'package:granulation/presentation/view/shifting/instrument_clearance.dart';
 import 'package:reference_wrapper/reference_wrapper.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class ShiftingProcess extends StatefulWidget {
   const ShiftingProcess({Key? key}) : super(key: key);
@@ -16,6 +19,15 @@ class ShiftingProcess extends StatefulWidget {
 }
 
 class _ShiftingProcessState extends State<ShiftingProcess> {
+  final RoundedLoadingButtonController _nextButtonController =
+      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _changeIpcButtonController =
+      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _changeSieveButtonController =
+      RoundedLoadingButtonController();
+
+  final List<String> materialSifted = [];
+
   final _formKey = GlobalKey<FormState>();
   final Ref<String> _productCode = Ref<String>('');
   final Ref<String> _batchNumber = Ref<String>('');
@@ -31,7 +43,7 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarBase(title: 'Shifting'),
+      appBar: const AppBarBase(title: 'Sifting - Process'),
       drawer: MainScaffold.drawer(context),
       body: SingleChildScrollView(
         child: Form(
@@ -78,7 +90,7 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                     //Area
                     SizedBox(
                       //Used to make DropdownSearch as of same height as TextFormField
-                      height: 55.0,
+                      // height: 55.0,
                       child: DropDownSearchSingleItemSelect(
                         url: ServerConfiguration.serverUri + SiftingUrl.areaUrl,
                         label: 'Area',
@@ -95,7 +107,7 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                     //Room Name
                     SizedBox(
                       //Used to make DropdownSearch as of same height as TextFormField
-                      height: 55.0,
+                      // height: 55.0,
                       child: DropDownSearchSingleItemSelect(
                         url: ServerConfiguration.serverUri +
                             SiftingUrl.allRoomName,
@@ -112,7 +124,7 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                     ),
                     SizedBox(
                       //Used to make DropdownSearch as of same height as TextFormField
-                      height: 55.0,
+                      // height: 55.0,
                       child: DropDownSearchSingleItemSelect(
                         url:
                             ServerConfiguration.serverUri + SiftingUrl.allStage,
@@ -209,8 +221,38 @@ class _ShiftingProcessState extends State<ShiftingProcess> {
                     const SizedBox(
                       height: 10.0,
                     ),
+                    RoundedLoadingButton(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ShiftingInstrumentClearance()),
+                        );
+                        Navigator.pop(context);
+                        print('Items Selected $materialSifted');
+                        // Validate returns true if the form is valid, or false otherwise.
+                        if (_formKey.currentState!.validate()) {
+                          // TODO Implement uncomment return and success
+                          // _nextButtonController.success();
+                          // return;
+                        }
+                        _nextButtonController.error();
+                        await Future.delayed(
+                            const Duration(milliseconds: 1500));
+                        _nextButtonController.reset();
+                      },
+                      controller: _nextButtonController,
+                      child: const Text('Next'),
+                    ),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AreaClearnce()),
+                        );
+                        Navigator.pop(context);
                         _productCode.ref = '';
                         if (_formKey.currentState!.validate()) {}
                       },

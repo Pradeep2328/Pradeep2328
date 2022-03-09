@@ -9,6 +9,8 @@ import 'package:granulation/common/urls.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
 import 'package:granulation/presentation/view/common_widgets/widgets.dart';
+import 'package:granulation/presentation/view/shifting/instrument_clearance.dart';
+import 'package:granulation/presentation/view/shifting/mesh_size_before_sieve.dart';
 import 'package:reference_wrapper/reference_wrapper.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -27,7 +29,7 @@ class AreaClearnce extends StatefulWidget {
 
 class _AreaClearanceState extends State {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  final List<String> materialSifted = [];
   String cleaningType = '';
   String instrumentCode = '';
   static const List<String> _instrumentType = [
@@ -847,6 +849,30 @@ class _AreaClearanceState extends State {
                 ),
                 const SizedBox(
                   height: 25.0,
+                ),
+
+                RoundedLoadingButton(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const ShiftingInstrumentClearance()),
+                    );
+                    Navigator.pop(context);
+                    print('Items Selected $materialSifted');
+                    // Validate returns true if the form is valid, or false otherwise.
+                    if (_formKey.currentState!.validate()) {
+                      // TODO Implement uncomment return and success
+                      // _nextButtonController.success();
+                      // return;
+                    }
+                    _nextButtonController.error();
+                    await Future.delayed(const Duration(milliseconds: 1500));
+                    _nextButtonController.reset();
+                  },
+                  controller: _nextButtonController,
+                  child: const Text('Next'),
                 ),
               ],
             ),

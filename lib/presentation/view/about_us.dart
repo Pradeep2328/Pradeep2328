@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:granulation/presentation/view/shifting/Policy.dart';
+import 'package:granulation/presentation/view/shifting/who_we_are.dart';
 
 class AboutUs extends StatelessWidget {
   const AboutUs({Key? key}) : super(key: key);
@@ -24,8 +26,10 @@ class AboutUs extends StatelessWidget {
         ),
         body: const TabBarView(
           children: <Widget>[
-            Text('Who We Are'),
-            Text('Policy'),
+            whoweare(),
+            Policy(),
+            // Text('Who We Are'),
+            // Text('Policy'),
           ],
         ),
       ),
